@@ -3,159 +3,161 @@
    ========================================= */
 
 function showSection(id, element) {
-    document.querySelectorAll('.module').forEach(mod => {
-        mod.classList.remove('active');
-        mod.style.display = 'none'; 
-    });
+    document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+    document.getElementById('quiz-setup').classList.remove('active');
+    document.getElementById('quiz-area').classList.remove('active');
+    document.getElementById('quiz-area').classList.add('hidden');
     
-    const quizArea = document.getElementById('quiz-area');
-    quizArea.classList.remove('active');
-    quizArea.classList.add('hidden'); 
+    const target = document.getElementById(id);
+    target.classList.add('active');
     
-    document.getElementById('content-area').style.display = 'block';
-    
-    const selectedMod = document.getElementById(id);
-    selectedMod.style.display = 'block';
-    // Small timeout to allow display block to apply before opacity transition
-    setTimeout(() => selectedMod.classList.add('active'), 10);
-
-    document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
+    document.querySelectorAll('.nav-links li').forEach(l => l.classList.remove('active'));
     element.classList.add('active');
-
     window.scrollTo(0, 0);
 }
 
-function showQuiz(element) {
-    document.querySelectorAll('.module').forEach(mod => {
-        mod.classList.remove('active');
-        mod.style.display = 'none';
-    });
-
-    const quizArea = document.getElementById('quiz-area');
-    quizArea.classList.remove('hidden');
-    quizArea.style.display = 'block';
-    setTimeout(() => quizArea.classList.add('active'), 10);
-
-    document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
-    element.classList.add('active');
+function showQuizSetup(element) {
+    document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+    document.getElementById('quiz-area').classList.add('hidden');
+    document.getElementById('quiz-setup').classList.add('active');
     
-    initQuiz();
+    document.querySelectorAll('.nav-links li').forEach(l => l.classList.remove('active'));
+    element.classList.add('active');
+}
+
+// Accordion Logic (Gjenopprettet!)
+function toggleAcc(element) {
+    const content = element.nextElementSibling;
+    content.classList.toggle('open');
+    const icon = element.querySelector('i');
+    if (content.classList.contains('open')) {
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+    } else {
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+    }
 }
 
 
 /* =========================================
-   2. QUIZ ENGINE
+   2. QUIZ ENGINE (SHEET MODE)
    ========================================= */
 
-let quizState = {
-    questions: [],
-    currentIdx: 0,
-    score: 0
-};
+let activeQuestions = [];
 
-function initQuiz() {
-    if (!window.rawQuestions || window.rawQuestions.length === 0) {
-        document.getElementById('quiz-card-container').innerHTML = "<p style='color:red; text-align:center;'>Error: Questions not found in questions.js</p>";
-        return;
+function startQuiz(mode) {
+    document.getElementById('quiz-setup').classList.remove('active');
+    const quizArea = document.getElementById('quiz-area');
+    quizArea.classList.remove('hidden');
+    quizArea.classList.add('active');
+    
+    let allQs = window.rawQuestions;
+    
+    // Filter questions based on mode
+    if (mode === 'all') {
+        // Shuffle and pick 30 random for Full Exam
+        activeQuestions = allQs.sort(() => 0.5 - Math.random()).slice(0, 30);
+        document.getElementById('quiz-status').innerText = "Full Exam (30 Questions)";
+    } else {
+        // Filter by specific module
+        activeQuestions = allQs.filter(q => q.mod === mode);
+        document.getElementById('quiz-status').innerText = `Module ${mode} Practice (${activeQuestions.length} Questions)`;
     }
 
-    // Shuffle and pick 60 questions
-    let qList = [...window.rawQuestions].sort(() => 0.5 - Math.random());
-    quizState.questions = qList.slice(0, 60); 
-    quizState.currentIdx = 0;
-    quizState.score = 0;
-
-    document.getElementById('quiz-footer').classList.remove('hidden');
-    renderQuestion();
+    renderQuizSheet();
 }
 
-function renderQuestion() {
-    if(quizState.currentIdx >= quizState.questions.length) {
-        showSummary();
-        return;
-    }
+function renderQuizSheet() {
+    const container = document.getElementById('quiz-list-container');
+    container.innerHTML = "";
+    document.getElementById('finish-btn').classList.remove('hidden');
+    document.getElementById('retry-btn').classList.add('hidden');
 
-    const q = quizState.questions[quizState.currentIdx];
-    
-    document.getElementById('q-current').innerText = quizState.currentIdx + 1;
-    document.getElementById('q-total').innerText = quizState.questions.length;
-    document.getElementById('score').innerText = quizState.score;
+    activeQuestions.forEach((q, index) => {
+        let html = `
+            <div class="quiz-question-block" id="q-block-${index}">
+                <div class="quiz-question-text">${index + 1}. ${q.q}</div>
+                <div class="quiz-options">
+        `;
+        
+        q.options.forEach((opt, optIdx) => {
+            html += `
+                <div class="quiz-option" onclick="selectOptionSheet(${index}, ${optIdx}, this)">
+                    <div style="width:24px; height:24px; border:2px solid #ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-right:10px;" class="opt-circle"></div>
+                    ${opt}
+                </div>
+            `;
+        });
 
-    document.getElementById('submit-btn').classList.remove('hidden');
-    document.getElementById('next-btn').classList.add('hidden');
-
-    let html = `
-        <div class="question-card">
-            <h2 style="color:var(--primary); margin-bottom:25px; font-size:1.4rem;">${q.q}</h2>
-            <div class="options-list">
-    `;
-    
-    q.options.forEach((opt, idx) => {
         html += `
-            <div class="option-btn" onclick="selectOption(this, ${idx})">
-                <div class="option-icon"></div>
-                ${opt}
-            </div>`;
+                </div>
+                <div class="quiz-explanation" id="exp-${index}">
+                    <strong><i class="fas fa-info-circle"></i> Explanation:</strong> ${q.exp}
+                </div>
+            </div>
+        `;
+        container.innerHTML += html;
+    });
+    
+    window.scrollTo(0,0);
+}
+
+function selectOptionSheet(qIdx, optIdx, element) {
+    // Prevent changing answer after submission
+    if (document.getElementById('finish-btn').classList.contains('hidden')) return;
+
+    const block = document.getElementById(`q-block-${qIdx}`);
+    
+    // Deselect all in this block
+    block.querySelectorAll('.quiz-option').forEach(el => {
+        el.classList.remove('selected');
+        el.querySelector('.opt-circle').style.background = 'transparent';
+        el.querySelector('.opt-circle').style.borderColor = '#ccc';
+        el.querySelector('.opt-circle').innerText = '';
+    });
+    
+    // Select clicked
+    element.classList.add('selected');
+    element.querySelector('.opt-circle').style.background = '#3498db';
+    element.querySelector('.opt-circle').style.borderColor = '#3498db';
+    
+    // Store user selection in DOM
+    block.dataset.userAnswer = optIdx;
+}
+
+function submitQuizSheet() {
+    let score = 0;
+    
+    activeQuestions.forEach((q, index) => {
+        const block = document.getElementById(`q-block-${index}`);
+        const userAns = block.dataset.userAnswer;
+        const options = block.querySelectorAll('.quiz-option');
+        const exp = document.getElementById(`exp-${index}`);
+
+        // Logic to show Right/Wrong
+        if (userAns !== undefined) {
+            if (parseInt(userAns) === q.a) {
+                score++;
+                options[userAns].classList.add('correct');
+                options[userAns].querySelector('.opt-circle').innerText = '✓';
+            } else {
+                options[userAns].classList.add('wrong');
+                options[userAns].querySelector('.opt-circle').innerText = '✗';
+                options[q.a].classList.add('correct'); // Show correct one
+            }
+        } else {
+             options[q.a].classList.add('correct'); // Show missed
+        }
+
+        exp.style.display = 'block';
     });
 
-    html += `
-            </div>
-            <div class="explanation hidden" id="explanation">
-                <strong><i class="fas fa-info-circle"></i> Explanation:</strong><br> ${q.exp}
-            </div>
-        </div>
-    `;
-
-    document.getElementById('quiz-card-container').innerHTML = html;
-}
-
-function selectOption(btn, idx) {
-    if(!document.getElementById('next-btn').classList.contains('hidden')) return; 
-
-    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    btn.dataset.idx = idx;
-}
-
-function checkAnswer() {
-    const selected = document.querySelector('.option-btn.selected');
-    if(!selected) { alert("Please select an option first!"); return; }
-
-    const q = quizState.questions[quizState.currentIdx];
-    const userAns = parseInt(selected.dataset.idx);
-
-    document.querySelectorAll('.option-btn').forEach((btn, idx) => {
-        if(idx === q.a) btn.classList.add('correct');
-        if(idx === userAns && idx !== q.a) btn.classList.add('wrong');
-    });
-
-    if(userAns === q.a) quizState.score++;
-
-    document.getElementById('explanation').classList.remove('hidden');
-    document.getElementById('submit-btn').classList.add('hidden');
-    document.getElementById('next-btn').classList.remove('hidden');
+    const percentage = Math.round((score / activeQuestions.length) * 100);
+    document.getElementById('quiz-status').innerText = `Score: ${score}/${activeQuestions.length} (${percentage}%)`;
     
-    document.getElementById('score').innerText = quizState.score;
-}
-
-function nextQuestion() {
-    quizState.currentIdx++;
-    renderQuestion();
-}
-
-function showSummary() {
-    const pct = Math.round((quizState.score / quizState.questions.length) * 100);
-    let msg = pct > 80 ? "Outstanding! You are exam ready." : pct > 50 ? "Good job, but review your weak areas." : "Keep studying, you can do this!";
+    document.getElementById('finish-btn').classList.add('hidden');
+    document.getElementById('retry-btn').classList.remove('hidden');
     
-    document.getElementById('quiz-card-container').innerHTML = `
-        <div class="slide" style="text-align: center; padding: 60px 20px;">
-            <i class="fas fa-graduation-cap" style="font-size: 5rem; color: var(--accent); margin-bottom:20px;"></i>
-            <h2>Exam Simulation Finished!</h2>
-            <div style="font-size: 4rem; color: var(--primary); margin: 20px 0; font-weight:800;">${pct}%</div>
-            <p style="font-size:1.2rem;">You scored ${quizState.score} out of ${quizState.questions.length}</p>
-            <p style="margin-top:20px; font-weight:bold; color:#7f8c8d;">${msg}</p>
-            <button class="btn-primary" style="margin-top:30px;" onclick="initQuiz()">Restart Simulation</button>
-        </div>
-    `;
-    document.getElementById('quiz-footer').classList.add('hidden');
+    window.scrollTo(0, 0);
 }
