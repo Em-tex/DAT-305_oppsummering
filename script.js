@@ -1,17 +1,11 @@
-// --- NAVIGATION LOGIC ---
+// --- Navigation ---
 function showSection(id, element) {
-    // Hide all content
-    document.querySelectorAll('.module').forEach(mod => mod.classList.remove('active'));
+    document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
     document.getElementById('quiz-area').classList.remove('active');
-    
-    // Show Main Content Area
     document.getElementById('content-area').style.display = 'block';
     
-    // Update Sidebar
     document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
     element.classList.add('active');
-
-    // Show correct module
     document.getElementById(id).classList.add('active');
 }
 
@@ -19,26 +13,30 @@ function showQuiz(element) {
     document.getElementById('content-area').style.display = 'none';
     document.getElementById('quiz-area').classList.add('active');
     
-    // Update Sidebar
     document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
     element.classList.add('active');
     
-    // Start or Reset quiz
-    if(currentQuestionIndex === 0 && score === 0) {
-        loadQuestion();
+    // Only init if not started
+    if(quizState.currentIdx === 0 && quizState.score === 0) {
+        initQuiz();
     }
 }
 
-// --- POP-UP MODAL LOGIC (English Terms) ---
+function toggleAcc(element) {
+    const content = element.nextElementSibling;
+    content.classList.toggle('open');
+    const icon = element.querySelector('i');
+    icon.classList.toggle('fa-chevron-down');
+    icon.classList.toggle('fa-chevron-up');
+}
+
+// --- Term Modal ---
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById("term-modal");
     const closeBtn = document.querySelector(".close");
-    const terms = document.querySelectorAll('.term');
-
-    // Add click event to all terms
-    terms.forEach(term => {
-        term.addEventListener('click', (e) => {
-            e.stopPropagation(); 
+    
+    document.querySelectorAll('.term').forEach(term => {
+        term.addEventListener('click', () => {
             document.getElementById('modal-title').innerText = term.innerText;
             document.getElementById('modal-desc').innerText = term.getAttribute('data-desc');
             modal.style.display = "block";
@@ -46,203 +44,166 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     closeBtn.onclick = () => modal.style.display = "none";
-
-    window.onclick = (event) => {
-        if (event.target == modal) modal.style.display = "none";
-    }
+    window.onclick = (e) => { if(e.target == modal) modal.style.display = "none"; };
 });
 
+// --- ROBUST QUIZ ENGINE ---
 
-// --- QUIZ DATA (All in English) ---
-const questions = [
-    // --- Module 1 ---
-    { q: "What is the primary goal of Machine Learning?", options: ["Store data", "Manually program rules", "Learn patterns from data to make decisions", "Clean data"], answer: 2, explanation: "ML allows computers to learn without explicit programming." },
-    { q: "Which type of learning uses 'labeled data'?", options: ["Unsupervised", "Reinforcement", "Supervised", "Clustering"], answer: 2, explanation: "Supervised learning requires input-output pairs (labels)." },
-    { q: "What is the Pandas library used for?", options: ["Numerical calculus", "Data manipulation (DataFrames)", "Training Neural Networks", "Plotting 3D graphs"], answer: 1, explanation: "Pandas is the standard library for tabular data (DataFrames)." },
+// 1. Data Source
+const rawQuestions = [
+    // Module 1
+    { q: "What is the primary goal of Machine Learning?", options: ["Store huge data", "Program explicit rules", "Learn patterns from data", "Fix hardware errors"], a: 2, exp: "ML builds models that learn from data instead of following strict manual rules." },
+    { q: "Which learning type uses 'labeled data'?", options: ["Unsupervised", "Reinforcement", "Supervised", "Clustering"], a: 2, exp: "Supervised learning requires input-output pairs (labels) for training." },
+    { q: "What is Reinforcement Learning?", options: ["Grouping data", "Agent maximizes reward", "Predicting prices", "Cleaning text"], a: 1, exp: "It involves an agent acting in an environment to get rewards." },
+    { q: "Which library is best for DataFrames?", options: ["NumPy", "Pandas", "Scikit-Learn", "Matplotlib"], a: 1, exp: "Pandas is the standard for tabular data manipulation." },
     
-    // --- Module 2 ---
-    { q: "What does a Dot Product of 0 indicate?", options: ["Vectors are parallel", "Vectors are orthogonal (perpendicular)", "Vectors are identical", "Vectors are negative"], answer: 1, explanation: "When the dot product is 0, the angle between vectors is 90 degrees (no correlation)." },
-    { q: "Which technique converts text categories into binary vectors (0s and 1s)?", options: ["PCA", "One-hot encoding", "Linear Regression", "SVD"], answer: 1, explanation: "One-hot encoding creates a sparse binary vector." },
-
-    // --- Module 3 ---
-    { q: "What is MSE (Mean Squared Error)?", options: ["A classification metric", "A loss function for regression", "A data splitting method", "Model accuracy"], answer: 1, explanation: "MSE measures the average squared difference between predicted and actual values." },
-    { q: "What does 'K' stand for in KNN?", options: ["Number of clusters", "Number of neighbors to vote", "Learning rate", "Number of dimensions"], answer: 1, explanation: "K determines how many nearest neighbors are considered for the vote." },
-    { q: "Which metric is best to avoid False Negatives (e.g., in cancer diagnosis)?", options: ["Precision", "Recall", "Accuracy", "MSE"], answer: 1, explanation: "Recall measures the ability to find all actual positive cases." },
-
-    // --- Module 4 ---
-    { q: "What is the purpose of an Activation Function?", options: ["Reset weights", "Introduce non-linearity", "Calculate error", "Store data"], answer: 1, explanation: "Without it, a neural network is just a linear regression model." },
-    { q: "Which problem does ReLU solve better than Sigmoid?", options: ["Overfitting", "Vanishing Gradient", "Underfitting", "Data loss"], answer: 1, explanation: "ReLU prevents gradients from becoming too small in the positive range." },
-    { q: "What is an 'Epoch'?", options: ["One weight update", "One complete pass through the entire dataset", "A batch of data", "The learning rate"], answer: 1, explanation: "An epoch means the model has seen every training example once." },
-
-    // --- Module 5 ---
-    { q: "What is the main purpose of a Convolution layer in a CNN?", options: ["Reduce image size", "Extract features (edges/shapes)", "Classify the image", "Flatten the image"], answer: 1, explanation: "Filters (kernels) slide over the image to detect features." },
-    { q: "Why use LSTM instead of a standard RNN?", options: ["It is faster", "It solves the short-term memory problem", "It requires less data", "It uses no weights"], answer: 1, explanation: "LSTM can remember dependencies over long sequences using gates." },
-
-    // --- Module 6 ---
-    { q: "What is Tokenization?", options: ["Removing stop words", "Splitting text into words/sub-units", "Translating text", "Finding sentiment"], answer: 1, explanation: "The first step in NLP is breaking text down into tokens." },
-    { q: "What is the key mechanism in Transformer models (like BERT)?", options: ["RNN", "Self-Attention", "Pooling", "Sigmoid"], answer: 1, explanation: "Attention allows the model to weigh the importance of different words in a sentence." },
+    // Module 2
+    { q: "If the Dot Product of two vectors is 0, they are:", options: ["Parallel", "Identical", "Orthogonal", "Negative"], a: 2, exp: "Zero dot product means the angle is 90 degrees (Uncorrelated)." },
+    { q: "One-Hot Encoding results in what type of vectors?", options: ["Dense", "Sparse", "Short", "Binary Tree"], a: 1, exp: "Vectors with mostly zeros and a single one are called Sparse." },
+    { q: "What does PCA maximize?", options: ["Error", "Variance", "Dimensions", "Bias"], a: 1, exp: "PCA finds the direction of maximum variance in the data." },
     
-    // --- Multi-Select Example ---
-    { 
-        q: "Select ALL algorithms that are Supervised Learning. (Multi-select)", 
-        type: "multi", 
-        options: ["K-Means", "Linear Regression", "SVM", "PCA"], 
-        answer: [1, 2], 
-        explanation: "K-Means and PCA are Unsupervised. Regression and SVM require labels." 
-    }
+    // Module 3
+    { q: "What is the Cost Function for Linear Regression?", options: ["Gini Impurity", "Cross-Entropy", "MSE (Mean Squared Error)", "Accuracy"], a: 2, exp: "MSE measures the average squared distance between prediction and truth." },
+    { q: "In KNN, what happens if K is too small (e.g., K=1)?", options: ["Underfitting", "Overfitting (Noise sensitivity)", "Perfect Generalization", "Nothing"], a: 1, exp: "Small K makes the model react to every outlier (noise)." },
+    { q: "Which metric is best for imbalanced datasets (e.g., Fraud Detection)?", options: ["Accuracy", "F1-Score / Recall", "MSE", "R-Squared"], a: 1, exp: "Accuracy is misleading if 99% of data is one class. Recall/F1 is better." },
+    { q: "What is the goal of K-Means?", options: ["Maximize cluster distance", "Minimize intra-cluster distance", "Supervised classification", "Find hyperplanes"], a: 1, exp: "It tries to make clusters as compact as possible." },
+    
+    // Module 4
+    { q: "What introduces non-linearity in a Neural Network?", options: ["Weights", "Bias", "Activation Function", "Optimizer"], a: 2, exp: "Without activation functions, it's just a linear model." },
+    { q: "Which Activation Function solves Vanishing Gradient?", options: ["Sigmoid", "ReLU", "Tanh", "Linear"], a: 1, exp: "ReLU (Rectified Linear Unit) does not saturate in the positive region." },
+    { q: "What algorithm updates the weights?", options: ["Backpropagation", "Gradient Descent", "Feed Forward", "Pooling"], a: 1, exp: "Backprop calculates gradient, Gradient Descent updates the weights." },
+
+    // Module 5
+    { q: "What does a Convolution Layer extract?", options: ["Probabilities", "Features (Edges/Shapes)", "Time series", "Clusters"], a: 1, exp: "Filters slide over images to detect spatial features." },
+    { q: "Why use LSTM over RNN?", options: ["Simpler", "Handles Long-term Memory", "For images only", "Faster training"], a: 1, exp: "LSTM gates prevent the vanishing gradient problem in long sequences." },
+    { q: "What is the 'Bottleneck' in an Autoencoder?", options: ["Input Layer", "Compressed Representation (z)", "Output Layer", "Loss Function"], a: 1, exp: "The bottleneck forces the model to learn a compressed version of data." },
+
+    // Module 6
+    { q: "TF-IDF is used for:", options: ["Image processing", "Feature Extraction in Text", "Audio tuning", "Database management"], a: 1, exp: "It weighs words by how unique they are to a specific document." },
+    { q: "What mechanism makes Transformers (BERT/GPT) powerful?", options: ["Convolution", "Self-Attention", "Recurrence", "MaxPooling"], a: 1, exp: "Attention allows the model to weigh the importance of all words at once." },
+    { q: "What is Hugging Face?", options: ["A robot", "A repository for NLP models", "An algorithm", "A hardware chip"], a: 1, exp: "It is the leading platform for sharing Transformer models." }
 ];
 
-// Fill up with duplicates to reach 60 (as requested for exam prep volume simulation).
-// In a real scenario, you would replace these with unique questions.
-while(questions.length < 60) {
-    let randomQ = questions[Math.floor(Math.random() * 15)]; 
-    questions.push({
-        q: "Review: " + randomQ.q,
-        options: randomQ.options,
-        answer: randomQ.answer,
-        explanation: randomQ.explanation,
-        type: randomQ.type
-    });
+// 2. State Management
+let quizState = {
+    questions: [],
+    currentIdx: 0,
+    score: 0
+};
+
+// 3. Init
+function initQuiz() {
+    // Clone and shuffle questions
+    // Expanding to 60+ as requested by duplicating for demo purposes
+    let expanded = [...rawQuestions];
+    while(expanded.length < 60) {
+        let random = rawQuestions[Math.floor(Math.random() * rawQuestions.length)];
+        expanded.push({ ...random, q: "Review: " + random.q });
+    }
+    
+    quizState.questions = expanded.sort(() => 0.5 - Math.random());
+    quizState.currentIdx = 0;
+    quizState.score = 0;
+    
+    renderQuestion();
 }
 
-// --- QUIZ LOGIC ---
-let currentQuestionIndex = 0;
-let score = 0;
-let shuffledQuestions = [];
-
-function loadQuestion() {
-    // Shuffle only on start
-    if (shuffledQuestions.length === 0) {
-        shuffledQuestions = questions.sort(() => 0.5 - Math.random());
-    }
-
-    if (currentQuestionIndex >= shuffledQuestions.length) {
-        showResults();
+// 4. Render
+function renderQuestion() {
+    if(quizState.currentIdx >= quizState.questions.length) {
+        showSummary();
         return;
     }
 
-    const qData = shuffledQuestions[currentQuestionIndex];
-    const container = document.getElementById('quiz-container');
-    container.innerHTML = ''; // Clear previous
-
-    // Update stats
-    document.getElementById('q-current').innerText = currentQuestionIndex + 1;
-    document.getElementById('q-total').innerText = shuffledQuestions.length;
+    const q = quizState.questions[quizState.currentIdx];
+    const container = document.getElementById('quiz-card-container');
     
-    // Button visibility
+    // Update Stats
+    document.getElementById('q-current').innerText = quizState.currentIdx + 1;
+    document.getElementById('q-total').innerText = quizState.questions.length;
+    document.getElementById('score').innerText = quizState.score;
+
+    // Reset Buttons
     document.getElementById('submit-btn').classList.remove('hidden');
     document.getElementById('next-btn').classList.add('hidden');
 
-    // Create Card
-    const card = document.createElement('div');
-    card.className = 'question-card';
+    // Build HTML
+    let html = `
+        <div class="question-card">
+            <h3>${q.q}</h3>
+            <div class="options-list">
+    `;
     
-    let typeText = qData.type === 'multi' ? "<small style='color:var(--accent)'>(Select all that apply)</small>" : "";
-    card.innerHTML = `<h3>${qData.q} ${typeText}</h3>`;
-
-    const optionsDiv = document.createElement('div');
-    optionsDiv.className = 'options-container';
-
-    // Generate Options
-    qData.options.forEach((opt, index) => {
-        const btn = document.createElement('div');
-        btn.className = 'option-btn';
-        btn.innerText = opt;
-        btn.onclick = () => selectOption(btn, index); 
-        optionsDiv.appendChild(btn);
+    q.options.forEach((opt, idx) => {
+        html += `<div class="option-btn" onclick="selectOpt(this, ${idx})">${opt}</div>`;
     });
 
-    card.appendChild(optionsDiv);
-    
-    // Explanation Box
-    const exp = document.createElement('div');
-    exp.className = 'explanation';
-    exp.id = 'explanation-box';
-    exp.innerHTML = `<strong>Explanation:</strong> ${qData.explanation}`;
-    card.appendChild(exp);
+    html += `
+            </div>
+            <div class="explanation hidden" id="explanation">
+                <strong>Explanation:</strong> ${q.exp}
+            </div>
+        </div>
+    `;
 
-    container.appendChild(card);
+    container.innerHTML = html;
 }
 
-function selectOption(btn, index) {
-    // Prevent selection if already submitted
-    if (!document.getElementById('next-btn').classList.contains('hidden')) return;
+// 5. Interaction
+function selectOpt(btn, idx) {
+    if(!document.getElementById('next-btn').classList.contains('hidden')) return; // Locked
 
-    const qData = shuffledQuestions[currentQuestionIndex];
-    const isMulti = qData.type === 'multi';
-
-    if (isMulti) {
-        btn.classList.toggle('selected');
-        btn.dataset.index = index;
-    } else {
-        // Clear others
-        document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        btn.dataset.index = index;
-    }
+    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    btn.dataset.idx = idx;
 }
 
 function checkAnswer() {
-    const qData = shuffledQuestions[currentQuestionIndex];
-    const selectedBtns = document.querySelectorAll('.option-btn.selected');
-    
-    if (selectedBtns.length === 0) {
-        alert("You must select an answer!");
-        return;
-    }
+    const selected = document.querySelector('.option-btn.selected');
+    if(!selected) { alert("Please select an answer."); return; }
 
-    let isCorrect = false;
+    const q = quizState.questions[quizState.currentIdx];
+    const userAns = parseInt(selected.dataset.idx);
 
-    if (qData.type === 'multi') {
-        const selectedIndices = Array.from(selectedBtns).map(b => parseInt(b.dataset.index));
-        // Sort to compare arrays
-        const sortedSel = selectedIndices.sort().toString();
-        const sortedAns = qData.answer.sort().toString();
-        isCorrect = (sortedSel === sortedAns);
-    } else {
-        const selectedIndex = parseInt(selectedBtns[0].dataset.index);
-        isCorrect = (selectedIndex === qData.answer);
-    }
-
-    // Visual Feedback
+    // Visuals
     document.querySelectorAll('.option-btn').forEach((btn, idx) => {
-        // Mark correct
-        if (qData.type === 'multi') {
-            if (qData.answer.includes(idx)) btn.classList.add('correct');
-        } else {
-            if (idx === qData.answer) btn.classList.add('correct');
-        }
-        
-        // Mark wrong
-        if (btn.classList.contains('selected') && !btn.classList.contains('correct')) {
-            btn.classList.add('wrong');
-        }
+        if(idx === q.a) btn.classList.add('correct');
+        if(idx === userAns && idx !== q.a) btn.classList.add('wrong');
     });
 
-    if (isCorrect) {
-        score++;
-        document.getElementById('score').innerText = score;
+    // Score
+    if(userAns === q.a) {
+        quizState.score++;
     }
 
-    document.getElementById('explanation-box').style.display = 'block';
+    // Show Exp & Next Button
+    document.getElementById('explanation').classList.remove('hidden');
     document.getElementById('submit-btn').classList.add('hidden');
     document.getElementById('next-btn').classList.remove('hidden');
+    document.getElementById('score').innerText = quizState.score;
 }
 
 function nextQuestion() {
-    currentQuestionIndex++;
-    loadQuestion();
+    quizState.currentIdx++;
+    renderQuestion();
 }
 
-function showResults() {
-    const container = document.getElementById('quiz-container');
+function showSummary() {
+    const container = document.getElementById('quiz-card-container');
+    const pct = Math.round((quizState.score / quizState.questions.length) * 100);
+    
     container.innerHTML = `
         <div class="slide" style="text-align: center;">
-            <h2>Quiz Complete!</h2>
-            <p style="font-size: 1.5rem;">Your Score: <strong>${score}</strong> / ${shuffledQuestions.length}</p>
-            <p>${score > (shuffledQuestions.length * 0.8) ? "Great job! You seem ready for the exam." : "Review the modules and try again."}</p>
-            <button onclick="location.reload()" style="padding:15px 30px; font-size:1.2rem; cursor:pointer;">Restart Quiz</button>
+            <h2>Exam Simulation Complete</h2>
+            <div style="font-size: 3rem; color: var(--primary); margin: 20px 0;">${pct}%</div>
+            <p>You scored ${quizState.score} out of ${quizState.questions.length}</p>
+            <button class="btn-primary" onclick="initQuiz()">Restart Quiz</button>
         </div>
     `;
-    document.getElementById('quiz-controls').style.display = 'none';
+    document.getElementById('quiz-footer').classList.add('hidden');
 }
+
+// Initial Load
+document.addEventListener('DOMContentLoaded', () => {
+    // Optional: Load Mod 1 by default
+});
