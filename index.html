@@ -6,8 +6,11 @@
     <title>DAT305 - Exam Preparation</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script>
-    MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+    };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -33,39 +36,55 @@
                 <h1>Module 1: Introduction to Machine Learning</h1>
                 <p>Foundations, Types of Learning, and Python Ecosystem</p>
             </div>
+
             <div class="slide">
                 <h3>1.1 What is Machine Learning?</h3>
-                <p>Traditional programming uses explicit rules. <span class="term" data-desc="Algorithms that learn patterns from data to make predictions or decisions without being explicitly programmed.">Machine Learning (ML)</span> uses data to learn those rules.</p>
+                <p>Unlike traditional programming where you hard-code rules, <span class="term" data-desc="Algorithms that allow computers to learn from data and make decisions or predictions without being explicitly programmed for the specific task.">Machine Learning (ML)</span> involves learning patterns from data to make predictions.</p>
                 <div class="concept-diagram">
-                    <div class="flow-step">Input Data</div> &rarr; <div class="flow-step highlight">ML Algorithm</div> &rarr; <div class="flow-step">Prediction</div>
+                    <div class="flow-step">Data Input</div>
+                    <div class="arrow">&rarr;</div>
+                    <div class="flow-step highlight">Training Algorithm</div>
+                    <div class="arrow">&rarr;</div>
+                    <div class="flow-step">Model</div>
+                    <div class="arrow">&rarr;</div>
+                    <div class="flow-step">Prediction</div>
                 </div>
             </div>
+
             <div class="slide">
-                <h3>1.2 Types of Machine Learning</h3>
+                <h3>1.2 Types of Learning</h3>
                 <div class="grid-3">
                     <div class="card">
-                        <div class="icon-header"><i class="fas fa-chalkboard-teacher"></i> Supervised</div>
-                        <p>Learning with <strong>Labeled Data</strong>.</p>
-                        <ul><li>Regression</li><li>Classification</li></ul>
+                        <div class="icon-header"><i class="fas fa-chalkboard-teacher"></i> Supervised Learning</div>
+                        <p>Training with <strong>Labeled Data</strong> (Input + Correct Output).</p>
+                        <ul>
+                            <li><strong>Regression:</strong> Predicting continuous values (e.g., House Price, Temp).</li>
+                            <li><strong>Classification:</strong> Predicting categories (e.g., Spam vs Not Spam).</li>
+                        </ul>
                     </div>
                     <div class="card">
-                        <div class="icon-header"><i class="fas fa-search"></i> Unsupervised</div>
-                        <p>Learning with <strong>Unlabeled Data</strong>.</p>
-                        <ul><li>Clustering</li><li>Dim. Reduction</li></ul>
+                        <div class="icon-header"><i class="fas fa-search"></i> Unsupervised Learning</div>
+                        <p>Training with <strong>Unlabeled Data</strong>. Finding hidden structures.</p>
+                        <ul>
+                            <li><strong>Clustering:</strong> Grouping similar data points.</li>
+                            <li><strong>Dimensionality Reduction:</strong> Simplifying data (PCA).</li>
+                        </ul>
                     </div>
                     <div class="card">
-                        <div class="icon-header"><i class="fas fa-gamepad"></i> Reinforcement</div>
-                        <p>Agent learns via <strong>Rewards</strong>.</p>
+                        <div class="icon-header"><i class="fas fa-gamepad"></i> Reinforcement Learning</div>
+                        <p>An agent learns to interact with an environment to maximize a <span class="term" data-desc="A feedback signal (positive or negative) used to train reinforcement learning agents.">Reward</span>.</p>
                     </div>
                 </div>
             </div>
+
             <div class="slide">
-                <h3>1.3 Python Libraries</h3>
+                <h3>1.3 Python Ecosystem</h3>
                 <table class="info-table">
-                    <tr><th>Library</th><th>Primary Use</th></tr>
-                    <tr><td><strong>NumPy</strong></td><td>Numerical Computing, N-dimensional arrays.</td></tr>
-                    <tr><td><strong>Pandas</strong></td><td>Data Manipulation, DataFrames.</td></tr>
-                    <tr><td><strong>Scikit-Learn</strong></td><td>Classic ML Algorithms.</td></tr>
+                    <tr><th>Library</th><th>Purpose</th><th>Key Object</th></tr>
+                    <tr><td><strong>NumPy</strong></td><td>Efficient numerical computation & Linear Algebra.</td><td><code>ndarray</code></td></tr>
+                    <tr><td><strong>Pandas</strong></td><td>Data manipulation, cleaning, and analysis.</td><td><code>DataFrame</code></td></tr>
+                    <tr><td><strong>Scikit-Learn</strong></td><td>Classic ML algorithms (Regression, SVM, K-Means).</td><td><code>model.fit()</code></td></tr>
+                    <tr><td><strong>Matplotlib</strong></td><td>Data Visualization (Plotting).</td><td><code>pyplot</code></td></tr>
                 </table>
             </div>
         </section>
@@ -73,140 +92,242 @@
         <section id="mod2" class="module">
             <div class="header-banner">
                 <h1>Module 2: Mathematics for AI</h1>
-                <p>Linear Algebra & Dimensionality Reduction</p>
+                <p>Linear Algebra, Data Representation & Dimensionality Reduction</p>
             </div>
+            
             <div class="slide">
-                <h3>2.1 Vectors and Matrices</h3>
-                <p><strong>Dot Product:</strong> If 0, vectors are <strong>Orthogonal</strong> (Uncorrelated).</p>
-                <div class="matrix-visual"><div>[ 1, 2 ] &middot; [ 3, 4 ] = 11</div></div>
+                <h3>2.1 Linear Algebra Basics</h3>
+                <p><strong>Vector:</strong> A 1D array representing features. Has magnitude and direction.</p>
+                <p><strong>Matrix:</strong> A 2D array. Rows usually represent samples, columns represent features.</p>
+                <div class="formula">
+                    <strong>Dot Product:</strong> $\mathbf{a} \cdot \mathbf{b} = \sum a_i b_i$
+                </div>
+                <p><em>Interpretation:</em> If Dot Product is 0, vectors are <span class="term" data-desc="Perpendicular vectors. In statistics, this means the variables are uncorrelated.">Orthogonal</span>.</p>
             </div>
+
             <div class="slide">
                 <h3>2.2 Data Representation</h3>
-                <p><strong>One-Hot:</strong> Sparse, binary vectors.</p>
-                <p><strong>Embeddings:</strong> Dense, semantic vectors.</p>
+                <div class="grid-2">
+                    <div>
+                        <h4>One-Hot Encoding</h4>
+                        <p>Converts categories to binary vectors.</p>
+                        <p>Result: <span class="term" data-desc="A vector where most elements are zero. Inefficient for memory.">Sparse Vector</span>.</p>
+                        <code>[0, 1, 0, 0]</code>
+                    </div>
+                    <div>
+                        <h4>Embeddings</h4>
+                        <p>Converts words/items to dense vectors based on similarity.</p>
+                        <p>Result: <strong>Dense Vector</strong>.</p>
+                        <code>[0.2, -0.5, 0.9]</code>
+                    </div>
+                </div>
             </div>
+
             <div class="slide">
-                <h3>2.3 PCA</h3>
-                <p>Reduces dimensions by finding <strong>Eigenvectors</strong> (Direction) and <strong>Eigenvalues</strong> (Variance).</p>
+                <h3>2.3 Dimensionality Reduction (PCA)</h3>
+                <p><strong>Principal Component Analysis (PCA)</strong> reduces the number of features while keeping the most important information (Variance).</p>
+                <ol>
+                    <li>Standardize Data (Mean = 0).</li>
+                    <li>Compute <strong>Covariance Matrix</strong>.</li>
+                    <li>Calculate <span class="term" data-desc="Vectors that do not change direction during a transformation, only length. In PCA, they point in the direction of data spread.">Eigenvectors</span> and <span class="term" data-desc="Scalar value indicating the magnitude of the Eigenvector (Amount of Variance).">Eigenvalues</span>.</li>
+                    <li>Select top $k$ components.</li>
+                </ol>
             </div>
         </section>
 
         <section id="mod3" class="module">
             <div class="header-banner">
                 <h1>Module 3: ML Algorithms</h1>
-                <p>Regression, Classification & Clustering</p>
+                <p>Regression, Classification, Metrics & Clustering</p>
             </div>
+
             <div class="slide">
-                <h3>3.1 Algorithms</h3>
+                <h3>3.1 Algorithms Overview</h3>
                 <div class="accordion">
                     <div class="acc-item">
+                        <h4 onclick="toggleAcc(this)">Linear Regression <i class="fas fa-chevron-down"></i></h4>
+                        <div class="acc-content">
+                            <p>Predicts a continuous value $y$ based on input $x$.</p>
+                            <p><strong>Cost Function:</strong> MSE (Mean Squared Error). We want to minimize this.</p>
+                            <div class="formula">$$MSE = \frac{1}{n} \sum (y_{actual} - y_{pred})^2$$</div>
+                        </div>
+                    </div>
+                    <div class="acc-item">
                         <h4 onclick="toggleAcc(this)">KNN (K-Nearest Neighbors) <i class="fas fa-chevron-down"></i></h4>
-                        <div class="acc-content"><p>Classifies based on $K$ neighbors. "Lazy Learner".</p></div>
+                        <div class="acc-content">
+                            <p>Classifies a new point based on the majority class of its $K$ nearest neighbors.</p>
+                            <p><strong>Lazy Learner:</strong> Does not train a model, just stores data.</p>
+                            <p><em>K too small?</em> <span class="term" data-desc="Model learns noise and specific details of training data, failing to generalize.">Overfitting</span>.</p>
+                        </div>
                     </div>
                     <div class="acc-item">
                         <h4 onclick="toggleAcc(this)">Decision Trees <i class="fas fa-chevron-down"></i></h4>
-                        <div class="acc-content"><p>Splits data to reduce <strong>Entropy</strong> (Impurity).</p></div>
+                        <div class="acc-content">
+                            <p>Splits data into branches.</p>
+                            <p><strong>Goal:</strong> Reduce <span class="term" data-desc="A measure of impurity or randomness in a dataset.">Entropy</span> (Increase Purity).</p>
+                        </div>
                     </div>
                     <div class="acc-item">
-                        <h4 onclick="toggleAcc(this)">SVM <i class="fas fa-chevron-down"></i></h4>
-                        <div class="acc-content"><p>Maximizes <strong>Margin</strong>. Uses Kernels for non-linear data.</p></div>
+                        <h4 onclick="toggleAcc(this)">SVM (Support Vector Machine) <i class="fas fa-chevron-down"></i></h4>
+                        <div class="acc-content">
+                            <p>Finds the best hyperplane to separate classes with the maximum <span class="term" data-desc="The distance between the hyperplane and the nearest data points (support vectors).">Margin</span>.</p>
+                            <p><strong>Kernel Trick:</strong> Maps data to higher dimensions to separate non-linear data.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="slide">
-                <h3>3.2 Metrics</h3>
+                <h3>3.2 Evaluation Metrics (Confusion Matrix)</h3>
                 <table class="confusion-matrix">
-                    <tr><th></th><th>Pred +</th><th>Pred -</th></tr>
-                    <tr><th>Actual +</th><td class="tp">TP</td><td class="fn">FN</td></tr>
-                    <tr><th>Actual -</th><td class="fp">FP</td><td class="tn">TN</td></tr>
+                    <tr><th></th><th>Predicted Positive</th><th>Predicted Negative</th></tr>
+                    <tr><th>Actual Positive</th><td class="tp">True Positive (TP)</td><td class="fn">False Negative (FN)</td></tr>
+                    <tr><th>Actual Negative</th><td class="fp">False Positive (FP)</td><td class="tn">True Negative (TN)</td></tr>
                 </table>
-                <p><strong>Accuracy:</strong> Overall correct. <strong>Recall:</strong> TP/(TP+FN). <strong>Precision:</strong> TP/(TP+FP).</p>
+                <div class="grid-2">
+                    <div>
+                        <p><strong>Accuracy:</strong> Overall correctness.</p>
+                        <p><strong>Precision:</strong> Quality of positive predictions.</p>
+                        <p>$$TP / (TP + FP)$$</p>
+                    </div>
+                    <div>
+                        <p><strong>Recall (Sensitivity):</strong> Ability to find all positives.</p>
+                        <p>$$TP / (TP + FN)$$</p>
+                    </div>
+                </div>
             </div>
+
             <div class="slide">
-                <h3>3.3 K-Means</h3>
-                <p>Unsupervised. Minimizes distance to centroids.</p>
+                <h3>3.3 Clustering (K-Means)</h3>
+                <p>Unsupervised learning to group data into $K$ clusters.</p>
+                <ol>
+                    <li>Initialize $K$ centroids randomly.</li>
+                    <li><strong>Assignment:</strong> Assign points to nearest centroid.</li>
+                    <li><strong>Update:</strong> Move centroid to the mean position of its points.</li>
+                    <li>Repeat until convergence.</li>
+                </ol>
             </div>
         </section>
 
         <section id="mod4" class="module">
             <div class="header-banner">
                 <h1>Module 4: Neural Networks</h1>
-                <p>Perceptrons & Backpropagation</p>
+                <p>Perceptrons, Backpropagation & Training</p>
             </div>
+
             <div class="slide">
-                <h3>4.1 The Neuron</h3>
+                <h3>4.1 The Artificial Neuron (Perceptron)</h3>
+                <p>Modeled after biological neurons. It takes inputs, weighs them, adds a bias, and fires via an activation function.</p>
                 <div class="nn-visual">
-                    <div class="node">x</div> &rarr; w &rarr; <div class="node">$\sum$</div> &rarr; f &rarr; <div class="node">y</div>
+                    <div class="node">x</div> &rarr; w &rarr; <div class="node">$\sum$</div> &rarr; Activation &rarr; <div class="node">y</div>
                 </div>
-                <div class="formula">$$Output = f(\sum (x \cdot w) + b)$$</div>
+                <div class="formula">$$y = f(\sum (x_i \cdot w_i) + b)$$</div>
             </div>
+
             <div class="slide">
                 <h3>4.2 Activation Functions</h3>
+                <p>Essential to introduce <strong>Non-Linearity</strong>.</p>
                 <ul>
-                    <li><strong>Sigmoid:</strong> (0,1). Problem: Vanishing Gradient.</li>
-                    <li><strong>ReLU:</strong> max(0, z). Solves Vanishing Gradient.</li>
-                    <li><strong>Softmax:</strong> Multi-class probabilities.</li>
+                    <li><strong>Sigmoid:</strong> Output (0, 1). Problem: <span class="term" data-desc="When gradients become so small during backpropagation that the network stops learning.">Vanishing Gradient</span>.</li>
+                    <li><strong>ReLU (Rectified Linear Unit):</strong> Output $max(0, z)$. Fast, solves Vanishing Gradient.</li>
+                    <li><strong>Softmax:</strong> Used in Output layer for multi-class probability distribution.</li>
                 </ul>
             </div>
+
             <div class="slide">
-                <h3>4.3 Training</h3>
-                <p><strong>Backpropagation:</strong> Calculates gradients.</p>
-                <p><strong>Gradient Descent:</strong> Updates weights.</p>
-                <p><strong>Epoch:</strong> Full dataset pass.</p>
+                <h3>4.3 Training the Network</h3>
+                <p><strong>Backpropagation:</strong> The algorithm to calculate gradients (error contribution of each weight).</p>
+                <p><strong>Gradient Descent:</strong> The optimization method to update weights to minimize loss.</p>
+                <p><strong>Epoch:</strong> One full pass through the dataset.</p>
+                <p><strong>Batch:</strong> A subset of data processed before updating weights.</p>
             </div>
         </section>
 
         <section id="mod5" class="module">
             <div class="header-banner">
                 <h1>Module 5: Deep Learning</h1>
+                <p>CNN, RNN, LSTM & Autoencoders</p>
             </div>
+
             <div class="slide">
-                <h3>5.1 CNN (Images)</h3>
-                <p><strong>Convolution:</strong> Extracts features using Filters.</p>
-                <p><strong>Pooling:</strong> Reduces size (Down-sampling).</p>
+                <h3>5.1 CNN (Convolutional Neural Networks)</h3>
+                <p>Best for <strong>Grid Data (Images)</strong>.</p>
+                <div class="concept-diagram">
+                    <div class="flow-step">Image</div> &rarr; 
+                    <div class="flow-step highlight">Conv Layer</div> &rarr; 
+                    <div class="flow-step warning">Pooling</div> &rarr; 
+                    <div class="flow-step">Flatten</div> &rarr; 
+                    <div class="flow-step">FC Layer</div>
+                </div>
+                <ul>
+                    <li><strong>Convolution:</strong> Extracts features (edges, textures) using Filters/Kernels.</li>
+                    <li><strong>Pooling (Max/Average):</strong> Down-samples (reduces size) to prevent overfitting and reduce computation.</li>
+                </ul>
             </div>
+
             <div class="slide">
-                <h3>5.2 RNN & LSTM</h3>
-                <p><strong>RNN:</strong> Sequence memory. Issue: Vanishing Gradient.</p>
-                <p><strong>LSTM:</strong> Solves it using Gates (Input, Output, Forget).</p>
+                <h3>5.2 RNN & LSTM (Sequence Data)</h3>
+                <p><strong>RNN (Recurrent Neural Network):</strong> Has memory (loops). Good for Time Series, Text. <br><em>Problem:</em> Vanishing Gradient (Short-term memory only).</p>
+                <p><strong>LSTM (Long Short-Term Memory):</strong> Solves RNN issues using <strong>Gates</strong>:</p>
+                <ul>
+                    <li><strong>Forget Gate:</strong> What to discard?</li>
+                    <li><strong>Input Gate:</strong> What to store?</li>
+                    <li><strong>Output Gate:</strong> What to pass to next state?</li>
+                </ul>
             </div>
+
             <div class="slide">
                 <h3>5.3 Autoencoders</h3>
-                <div class="concept-diagram">
-                    Input &rarr; Encoder &rarr; <span class="flow-step warning">Bottleneck</span> &rarr; Decoder &rarr; Output
-                </div>
+                <p>Unsupervised learning for Data Compression / Denoising.</p>
+                <p>Structure: <strong>Encoder</strong> &rarr; <span class="term" data-desc="The compressed representation of the data in the middle of an autoencoder.">Bottleneck</span> &rarr; <strong>Decoder</strong>.</p>
             </div>
         </section>
 
         <section id="mod6" class="module">
             <div class="header-banner">
                 <h1>Module 6: NLP</h1>
+                <p>Natural Language Processing & Transformers</p>
             </div>
+
             <div class="slide">
-                <h3>6.1 Basics</h3>
-                <p><strong>Tokenization:</strong> Splitting text.</p>
-                <p><strong>TF-IDF:</strong> Weighting word importance.</p>
+                <h3>6.1 NLP Basics</h3>
+                <ul>
+                    <li><strong>Tokenization:</strong> Breaking text into words/sub-words.</li>
+                    <li><strong>Stop Words:</strong> Removing common words (the, is, a).</li>
+                    <li><strong>Stemming/Lemmatization:</strong> Reducing words to root (Fishing -> Fish).</li>
+                </ul>
             </div>
+
             <div class="slide">
-                <h3>6.2 Transformers</h3>
-                <p>State-of-the-art (BERT, GPT).</p>
-                <p>Mechanism: <strong>Self-Attention</strong>.</p>
-                <p>Library: <strong>Hugging Face</strong>.</p>
+                <h3>6.2 Feature Extraction</h3>
+                <p><strong>TF-IDF:</strong> Weighs words by importance. High score = Frequent in document, rare in corpus.</p>
+                <p><strong>Word Embeddings (Word2Vec):</strong> Mapping words to vectors based on semantic meaning. (King - Man + Woman = Queen).</p>
+            </div>
+
+            <div class="slide">
+                <h3>6.3 Transformers</h3>
+                <p>State-of-the-art architecture (BERT, GPT).</p>
+                <p><strong>Self-Attention:</strong> Allows the model to look at the entire sentence at once and weigh relationships between words.</p>
+                <p><strong>Hugging Face:</strong> Popular library/hub for pre-trained Transformer models.</p>
+                <p><strong>Transfer Learning:</strong> Fine-tuning a pre-trained model on your specific task.</p>
             </div>
         </section>
 
         <section id="quiz-area" class="hidden">
             <div class="quiz-container-wrapper">
                 <div class="quiz-header">
-                    <h1>Exam Simulator</h1>
+                    <h1><i class="fas fa-edit"></i> Exam Simulator</h1>
                     <div class="stats-bar">
                         Question: <span id="q-current">1</span>/<span id="q-total">0</span> | Score: <span id="score">0</span>
                     </div>
                 </div>
-                <div id="quiz-card-container"></div>
+                
+                <div id="quiz-card-container">
+                    </div>
+
                 <div id="quiz-footer">
                     <button id="submit-btn" class="btn-primary" onclick="checkAnswer()">Submit Answer</button>
-                    <button id="next-btn" class="btn-secondary hidden" onclick="nextQuestion()">Next Question &rarr;</button>
+                    <button id="next-btn" class="btn-secondary hidden" onclick="nextQuestion()">Next Question <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
         </section>
@@ -215,8 +336,8 @@
     <div id="term-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h3 id="modal-title">Term</h3>
-            <p id="modal-desc">Desc</p>
+            <h3 id="modal-title">Term Definition</h3>
+            <p id="modal-desc">Description goes here...</p>
         </div>
     </div>
 

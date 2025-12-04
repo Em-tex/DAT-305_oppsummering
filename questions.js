@@ -1,4 +1,6 @@
-const rawQuestions = [
+// Database med spørsmål
+// Vi legger den på 'window' objektet for å være sikker på at script.js finner den.
+window.rawQuestions = [
     // --- MODULE 1: Intro & Python ---
     { q: "What is the primary distinction between Machine Learning and traditional programming?", options: ["ML is faster", "ML learns rules from data instead of explicit programming", "ML uses Python", "ML creates databases"], a: 1, exp: "Traditional programming relies on hard-coded rules, while ML infers rules from data." },
     { q: "Which type of learning deals with labeled data (Input-Output pairs)?", options: ["Unsupervised Learning", "Reinforcement Learning", "Supervised Learning", "Clustering"], a: 2, exp: "Supervised learning trains on known outcomes (labels)." },
