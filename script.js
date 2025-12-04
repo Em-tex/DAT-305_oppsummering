@@ -3,67 +3,44 @@
    ========================================= */
 
 function showSection(id, element) {
-    // Hide all modules and quiz
-    document.querySelectorAll('.module').forEach(mod => mod.classList.remove('active'));
-    document.getElementById('quiz-area').classList.remove('active');
+    document.querySelectorAll('.module').forEach(mod => {
+        mod.classList.remove('active');
+        mod.style.display = 'none'; 
+    });
+    
+    const quizArea = document.getElementById('quiz-area');
+    quizArea.classList.remove('active');
+    quizArea.classList.add('hidden'); 
+    
     document.getElementById('content-area').style.display = 'block';
     
-    // Update Navbar
+    const selectedMod = document.getElementById(id);
+    selectedMod.style.display = 'block';
+    // Small timeout to allow display block to apply before opacity transition
+    setTimeout(() => selectedMod.classList.add('active'), 10);
+
     document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
     element.classList.add('active');
 
-    // Show selected module and scroll top
-    document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
 }
 
 function showQuiz(element) {
-    // Hide modules, Show Quiz
-    document.getElementById('content-area').style.display = 'none';
-    document.getElementById('quiz-area').classList.add('active');
-    
-    // Update Navbar
+    document.querySelectorAll('.module').forEach(mod => {
+        mod.classList.remove('active');
+        mod.style.display = 'none';
+    });
+
+    const quizArea = document.getElementById('quiz-area');
+    quizArea.classList.remove('hidden');
+    quizArea.style.display = 'block';
+    setTimeout(() => quizArea.classList.add('active'), 10);
+
     document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
     element.classList.add('active');
     
-    // Start quiz if not started
-    if(quizState.currentIdx === 0 && quizState.score === 0) {
-        initQuiz();
-    }
+    initQuiz();
 }
-
-// Accordion Logic
-function toggleAcc(element) {
-    const content = element.nextElementSibling;
-    content.classList.toggle('open');
-    const icon = element.querySelector('i');
-    if (content.classList.contains('open')) {
-        icon.classList.remove('fa-chevron-down');
-        icon.classList.add('fa-chevron-up');
-    } else {
-        icon.classList.remove('fa-chevron-up');
-        icon.classList.add('fa-chevron-down');
-    }
-}
-
-// Pop-up / Modal Logic
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById("term-modal");
-    const closeBtn = document.querySelector(".close");
-    
-    document.querySelectorAll('.term').forEach(term => {
-        term.addEventListener('click', () => {
-            document.getElementById('modal-title').innerText = term.innerText;
-            document.getElementById('modal-desc').innerText = term.getAttribute('data-desc');
-            modal.style.display = "block";
-        });
-    });
-
-    closeBtn.onclick = () => modal.style.display = "none";
-    window.onclick = (event) => {
-        if (event.target == modal) modal.style.display = "none";
-    }
-});
 
 
 /* =========================================
@@ -77,22 +54,18 @@ let quizState = {
 };
 
 function initQuiz() {
-    // Access the global variable from questions.js
-    const db = window.rawQuestions;
-
-    if (!db || db.length === 0) {
-        document.getElementById('quiz-card-container').innerHTML = "<p style='color:red;'>Error: Questions not loaded. Check questions.js.</p>";
+    if (!window.rawQuestions || window.rawQuestions.length === 0) {
+        document.getElementById('quiz-card-container').innerHTML = "<p style='color:red; text-align:center;'>Error: Questions not found in questions.js</p>";
         return;
     }
 
-    // Clone and Shuffle
-    let qList = [...db].sort(() => 0.5 - Math.random());
-    
-    // Select top 60 (or all if less)
+    // Shuffle and pick 60 questions
+    let qList = [...window.rawQuestions].sort(() => 0.5 - Math.random());
     quizState.questions = qList.slice(0, 60); 
     quizState.currentIdx = 0;
     quizState.score = 0;
 
+    document.getElementById('quiz-footer').classList.remove('hidden');
     renderQuestion();
 }
 
@@ -104,30 +77,31 @@ function renderQuestion() {
 
     const q = quizState.questions[quizState.currentIdx];
     
-    // Stats
     document.getElementById('q-current').innerText = quizState.currentIdx + 1;
     document.getElementById('q-total').innerText = quizState.questions.length;
     document.getElementById('score').innerText = quizState.score;
 
-    // Buttons
     document.getElementById('submit-btn').classList.remove('hidden');
     document.getElementById('next-btn').classList.add('hidden');
 
-    // Build HTML
     let html = `
         <div class="question-card">
-            <h3>${q.q}</h3>
+            <h2 style="color:var(--primary); margin-bottom:25px; font-size:1.4rem;">${q.q}</h2>
             <div class="options-list">
     `;
     
     q.options.forEach((opt, idx) => {
-        html += `<div class="option-btn" onclick="selectOption(this, ${idx})">${opt}</div>`;
+        html += `
+            <div class="option-btn" onclick="selectOption(this, ${idx})">
+                <div class="option-icon"></div>
+                ${opt}
+            </div>`;
     });
 
     html += `
             </div>
             <div class="explanation hidden" id="explanation">
-                <strong>Explanation:</strong> ${q.exp}
+                <strong><i class="fas fa-info-circle"></i> Explanation:</strong><br> ${q.exp}
             </div>
         </div>
     `;
@@ -136,7 +110,7 @@ function renderQuestion() {
 }
 
 function selectOption(btn, idx) {
-    if(!document.getElementById('next-btn').classList.contains('hidden')) return; // Locked
+    if(!document.getElementById('next-btn').classList.contains('hidden')) return; 
 
     document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
@@ -145,7 +119,7 @@ function selectOption(btn, idx) {
 
 function checkAnswer() {
     const selected = document.querySelector('.option-btn.selected');
-    if(!selected) { alert("Select an answer!"); return; }
+    if(!selected) { alert("Please select an option first!"); return; }
 
     const q = quizState.questions[quizState.currentIdx];
     const userAns = parseInt(selected.dataset.idx);
@@ -161,7 +135,6 @@ function checkAnswer() {
     document.getElementById('submit-btn').classList.add('hidden');
     document.getElementById('next-btn').classList.remove('hidden');
     
-    // Update score immediately
     document.getElementById('score').innerText = quizState.score;
 }
 
@@ -172,12 +145,16 @@ function nextQuestion() {
 
 function showSummary() {
     const pct = Math.round((quizState.score / quizState.questions.length) * 100);
+    let msg = pct > 80 ? "Outstanding! You are exam ready." : pct > 50 ? "Good job, but review your weak areas." : "Keep studying, you can do this!";
+    
     document.getElementById('quiz-card-container').innerHTML = `
-        <div class="slide" style="text-align: center;">
-            <h2>Quiz Finished!</h2>
-            <div style="font-size: 4rem; color: var(--primary); margin: 20px 0; font-weight:bold;">${pct}%</div>
-            <p>You scored ${quizState.score} out of ${quizState.questions.length}</p>
-            <button class="btn-primary" onclick="initQuiz()">Restart Quiz</button>
+        <div class="slide" style="text-align: center; padding: 60px 20px;">
+            <i class="fas fa-graduation-cap" style="font-size: 5rem; color: var(--accent); margin-bottom:20px;"></i>
+            <h2>Exam Simulation Finished!</h2>
+            <div style="font-size: 4rem; color: var(--primary); margin: 20px 0; font-weight:800;">${pct}%</div>
+            <p style="font-size:1.2rem;">You scored ${quizState.score} out of ${quizState.questions.length}</p>
+            <p style="margin-top:20px; font-weight:bold; color:#7f8c8d;">${msg}</p>
+            <button class="btn-primary" style="margin-top:30px;" onclick="initQuiz()">Restart Simulation</button>
         </div>
     `;
     document.getElementById('quiz-footer').classList.add('hidden');
