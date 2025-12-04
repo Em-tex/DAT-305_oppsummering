@@ -1,10 +1,12 @@
 :root {
-    --primary: #004e66; /* UiS style blue/dark */
+    --primary: #004e66;
     --accent: #e55039;
     --light: #f5f6fa;
     --dark: #2f3640;
     --success: #4cd137;
     --error: #e84118;
+    --selected-bg: #dff9fb;
+    --selected-border: #004e66;
 }
 
 body {
@@ -25,6 +27,8 @@ body {
     flex-direction: column;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    z-index: 100; /* Sidebar Layer */
+    overflow-y: auto;
 }
 
 .sidebar h2 {
@@ -34,11 +38,7 @@ body {
     padding-bottom: 10px;
 }
 
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
+.sidebar ul { list-style: none; padding: 0; }
 .sidebar li {
     padding: 15px 10px;
     cursor: pointer;
@@ -46,38 +46,17 @@ body {
     transition: background 0.3s;
     margin-bottom: 5px;
 }
+.sidebar li:hover { background-color: rgba(255,255,255,0.2); }
+.sidebar li.active { background-color: rgba(255,255,255,0.3); font-weight: bold; border-left: 4px solid var(--accent); }
 
-.sidebar li:hover, .sidebar li.active {
-    background-color: rgba(255,255,255,0.2);
-}
-
-.quiz-nav {
-    margin-top: auto;
-    background-color: var(--accent) !important;
-    font-weight: bold;
-}
+.quiz-nav { margin-top: auto; background-color: var(--accent) !important; font-weight: bold; }
 
 /* Main Content */
-.container {
-    display: flex;
-    width: 100%;
-}
+.container { display: flex; width: 100%; }
+main { flex: 1; padding: 40px; overflow-y: auto; background-color: var(--light); position: relative; }
 
-main {
-    flex: 1;
-    padding: 40px;
-    overflow-y: auto;
-    background-color: var(--light);
-}
-
-.module {
-    display: none;
-    animation: fadeIn 0.5s;
-}
-
-.module.active {
-    display: block;
-}
+.module { display: none; animation: fadeIn 0.4s; }
+.module.active { display: block; }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -93,201 +72,107 @@ main {
     margin-bottom: 30px;
     border-left: 5px solid var(--primary);
 }
+.slide h3 { margin-top: 0; color: var(--primary); }
 
-.slide h3 {
-    margin-top: 0;
-    color: var(--primary);
-}
-
-/* Terms */
+/* Terms & Formulas */
 .term {
     border-bottom: 2px dashed var(--accent);
     color: var(--dark);
     font-weight: bold;
     cursor: help;
+    position: relative;
 }
-
-/* Components */
-.comparison-table {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.card {
-    flex: 1;
-    background: #f1f2f6;
-    padding: 15px;
-    border-radius: 8px;
-    min-width: 250px;
-}
-
-.diagram {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
-    font-weight: bold;
-}
-
-.box {
-    border: 2px solid var(--dark);
-    padding: 10px 20px;
-    border-radius: 5px;
-}
-
-.box.algo {
-    background-color: var(--primary);
-    color: white;
-    border: none;
-}
+.term:hover { color: var(--accent); }
 
 .formula {
-    background: #eccc68;
-    padding: 10px;
+    background: #fff3cd;
+    padding: 15px;
     text-align: center;
     border-radius: 5px;
-    margin: 10px 0;
-    font-family: 'Courier New', monospace;
+    margin: 15px 0;
+    font-size: 1.2em;
 }
+
+/* Comparison Cards */
+.comparison-table { display: flex; gap: 20px; flex-wrap: wrap; }
+.card { flex: 1; background: #f1f2f6; padding: 15px; border-radius: 8px; min-width: 250px; }
 
 /* Quiz Styling */
-#quiz-area {
-    flex: 1;
-    padding: 40px;
-    background-color: white;
-    overflow-y: auto;
-    display: none;
-}
+#quiz-area { flex: 1; padding: 40px; background-color: white; overflow-y: auto; display: none; }
+#quiz-area.active { display: block; }
 
-#quiz-area.active {
-    display: block;
-}
-
-.question-card {
-    background: white;
-    padding: 20px;
-    font-size: 1.1rem;
-}
-
-.options-container {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+.question-card { background: white; padding: 20px; font-size: 1.1rem; max-width: 800px; margin: 0 auto; }
+.options-container { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
 
 .option-btn {
     padding: 15px;
     border: 2px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
     background: white;
     cursor: pointer;
     text-align: left;
     font-size: 1rem;
     transition: all 0.2s;
 }
-
-.option-btn:hover {
-    background-color: #f1f2f6;
-}
-
-.option-btn.selected {
-    border-color: var(--primary);
-    background-color: #e3f2fd;
-}
-
-.option-btn.correct {
-    background-color: var(--success);
-    color: white;
-    border-color: var(--success);
-}
-
-.option-btn.wrong {
-    background-color: var(--error);
-    color: white;
-    border-color: var(--error);
-}
+.option-btn:hover { background-color: #f1f2f6; border-color: #bbb; }
+.option-btn.selected { border-color: var(--selected-border); background-color: var(--selected-bg); font-weight: bold; }
+.option-btn.correct { background-color: var(--success); color: white; border-color: var(--success); }
+.option-btn.wrong { background-color: var(--error); color: white; border-color: var(--error); }
 
 .explanation {
     margin-top: 20px;
     padding: 15px;
-    background-color: #fff3cd;
-    border-left: 5px solid #ffc107;
+    background-color: #e3f2fd;
+    border-left: 5px solid #2196F3;
     border-radius: 5px;
-    display: none;
+    display: none; /* Hidden by default */
 }
 
-/* Drag and Drop Styling */
-.draggable-container {
+#quiz-controls {
+    max-width: 800px;
+    margin: 20px auto;
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    justify-content: flex-end;
 }
-
-.draggables, .droppables {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 45%;
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: var(--primary);
+    color: white;
+    transition: background 0.2s;
 }
+button:hover { background-color: #003a4d; }
+.hidden { display: none !important; }
 
-.draggable {
-    padding: 10px;
-    background: var(--light);
-    border: 1px solid #ccc;
-    cursor: grab;
-    border-radius: 4px;
-}
-
-.droppable {
-    padding: 10px;
-    border: 2px dashed #ccc;
-    min-height: 40px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    background: #fff;
-}
-
-.droppable.filled {
-    border-style: solid;
-    border-color: var(--primary);
-    background: #e3f2fd;
-}
-
-/* Modal */
+/* Modal (Pop-up) */
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 100; 
+    z-index: 2000; 
     left: 0;
     top: 0;
     width: 100%; 
     height: 100%; 
-    background-color: rgba(0,0,0,0.5); 
+    background-color: rgba(0,0,0,0.6); 
+    backdrop-filter: blur(2px);
 }
-
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto; 
-    padding: 20px;
+    padding: 25px;
     border: 1px solid #888;
     width: 50%;
-    border-radius: 8px;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    min-width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    animation: zoomIn 0.3s;
 }
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
-
-.close:hover { color: black; }
-
-.hidden { display: none; }
+.close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.close:hover { color: #000; }
