@@ -25,7 +25,7 @@ function showQuizSetup(element) {
     element.classList.add('active');
 }
 
-// Accordion Logic (Gjenopprettet!)
+// Accordion Logic
 function toggleAcc(element) {
     const content = element.nextElementSibling;
     content.classList.toggle('open');
@@ -41,7 +41,7 @@ function toggleAcc(element) {
 
 
 /* =========================================
-   2. QUIZ ENGINE (SHEET MODE)
+   2. QUIZ ENGINE
    ========================================= */
 
 let activeQuestions = [];
@@ -56,9 +56,9 @@ function startQuiz(mode) {
     
     // Filter questions based on mode
     if (mode === 'all') {
-        // Shuffle and pick 30 random for Full Exam
-        activeQuestions = allQs.sort(() => 0.5 - Math.random()).slice(0, 30);
-        document.getElementById('quiz-status').innerText = "Full Exam (30 Questions)";
+        // Shuffle and pick 60 random for Full Exam (INCREASED FROM 30)
+        activeQuestions = allQs.sort(() => 0.5 - Math.random()).slice(0, 60);
+        document.getElementById('quiz-status').innerText = "Full Exam (60 Questions)";
     } else {
         // Filter by specific module
         activeQuestions = allQs.filter(q => q.mod === mode);
@@ -104,12 +104,10 @@ function renderQuizSheet() {
 }
 
 function selectOptionSheet(qIdx, optIdx, element) {
-    // Prevent changing answer after submission
     if (document.getElementById('finish-btn').classList.contains('hidden')) return;
 
     const block = document.getElementById(`q-block-${qIdx}`);
     
-    // Deselect all in this block
     block.querySelectorAll('.quiz-option').forEach(el => {
         el.classList.remove('selected');
         el.querySelector('.opt-circle').style.background = 'transparent';
@@ -117,12 +115,10 @@ function selectOptionSheet(qIdx, optIdx, element) {
         el.querySelector('.opt-circle').innerText = '';
     });
     
-    // Select clicked
     element.classList.add('selected');
     element.querySelector('.opt-circle').style.background = '#3498db';
     element.querySelector('.opt-circle').style.borderColor = '#3498db';
     
-    // Store user selection in DOM
     block.dataset.userAnswer = optIdx;
 }
 
@@ -135,7 +131,6 @@ function submitQuizSheet() {
         const options = block.querySelectorAll('.quiz-option');
         const exp = document.getElementById(`exp-${index}`);
 
-        // Logic to show Right/Wrong
         if (userAns !== undefined) {
             if (parseInt(userAns) === q.a) {
                 score++;
@@ -144,10 +139,10 @@ function submitQuizSheet() {
             } else {
                 options[userAns].classList.add('wrong');
                 options[userAns].querySelector('.opt-circle').innerText = '✗';
-                options[q.a].classList.add('correct'); // Show correct one
+                options[q.a].classList.add('correct'); 
             }
         } else {
-             options[q.a].classList.add('correct'); // Show missed
+             options[q.a].classList.add('correct'); 
         }
 
         exp.style.display = 'block';

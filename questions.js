@@ -1,57 +1,57 @@
 window.rawQuestions = [
-    // === MODULE 1 ===
-    { mod: 1, q: "Traditional programming uses Rules + Data = Answers. What is the ML paradigm?", options: ["Answers + Rules = Data", "Data + Answers = Rules", "Rules + Answers = Data", "Data = Rules"], a: 1, exp: "ML infers the rules by looking at input data and expected answers." },
+    // === MODULE 1: INTRO ===
+    { mod: 1, q: "Traditional programming uses Rules + Data = Answers. What is the Machine Learning (ML) paradigm?", options: ["Answers + Rules = Data", "Data + Answers = Rules", "Rules + Answers = Data", "Data = Rules"], a: 1, exp: "ML infers the rules by looking at input data and expected answers." },
     { mod: 1, q: "Which of these is a Supervised Learning task?", options: ["Grouping customers by purchasing behavior", "Teaching a robot to walk", "Predicting house prices based on size", "Reducing image file size"], a: 2, exp: "House price prediction relies on labeled historical data (Price = Label)." },
     { mod: 1, q: "What is NumPy primarily used for?", options: ["Web Development", "Efficient N-dimensional array operations", "Data Visualization", "Database Management"], a: 1, exp: "NumPy is the foundational library for math and arrays in Python." },
     { mod: 1, q: "In Reinforcement Learning, the agent learns via...", options: ["Teacher correction", "Reward and Punishment signals", "Clustering", "Gradient Descent on labeled data"], a: 1, exp: "The agent explores an environment and maximizes cumulative reward." },
     { mod: 1, q: "Which function splits data to prevent overfitting?", options: ["train_test_split()", "fit()", "predict()", "compile()"], a: 0, exp: "We must test the model on data it has never seen before." },
-    { mod: 1, q: "Deep Learning is distinct from ML because...", options: ["It uses Neural Networks with many layers", "It requires no data", "It is slower", "It is only for images"], a: 0, exp: "Deep Learning refers specifically to multi-layered (Deep) Neural Networks." },
+    { mod: 1, q: "Deep Learning is distinct from Machine Learning (ML) because...", options: ["It uses Neural Networks with many layers", "It requires no data", "It is slower", "It is only for images"], a: 0, exp: "Deep Learning refers specifically to multi-layered (Deep) Neural Networks." },
     { mod: 1, q: "Pandas uses which structure for tabular data?", options: ["Tensor", "DataFrame", "List", "Tree"], a: 1, exp: "DataFrame is the Excel-like structure in Pandas." },
     { mod: 1, q: "Unsupervised Learning aims to...", options: ["Predict labels", "Find hidden structure in unlabeled data", "Maximize rewards", "Sort lists"], a: 1, exp: "Clustering and Dimensionality Reduction are key examples." },
     { mod: 1, q: "Scikit-Learn is NOT typically used for...", options: ["Deep Learning (CNNs/RNNs)", "Regression", "SVM", "PCA"], a: 0, exp: "For Deep Learning, we usually prefer TensorFlow/Keras or PyTorch." },
-    { mod: 1, q: "What is a 'Feature' in ML?", options: ["The output class", "An input variable used for prediction", "A bug in the code", "The library used"], a: 1, exp: "Features (X) are the inputs (e.g., Age, Height) used to predict the Target (Y)." },
+    { mod: 1, q: "What is a 'Feature' in Machine Learning?", options: ["The output class", "An input variable used for prediction", "A bug in the code", "The library used"], a: 1, exp: "Features (X) are the inputs (e.g., Age, Height) used to predict the Target (Y)." },
 
-    // === MODULE 2 ===
+    // === MODULE 2: MATH ===
     { mod: 2, q: "If the Dot Product of two vectors is zero, they are...", options: ["Parallel", "Identical", "Orthogonal (Perpendicular)", "Opposite"], a: 2, exp: "This implies they have zero correlation (90 degree angle)." },
-    { mod: 2, q: "What is the correct order of PCA steps?", options: ["Project -> Eigen -> Covariance -> Standardize", "Standardize -> Covariance -> Eigen -> Project", "Covariance -> Standardize -> Project -> Eigen", "Standardize -> Project -> Covariance"], a: 1, exp: "We must Standardize first, then find relationships (Covariance), then directions (Eigen), then Project." },
+    { mod: 2, q: "What is the correct order of Principal Component Analysis (PCA) steps?", options: ["Project -> Eigen -> Covariance -> Standardize", "Standardize -> Covariance -> Eigen -> Project", "Covariance -> Standardize -> Project -> Eigen", "Standardize -> Project -> Covariance"], a: 1, exp: "We must Standardize first, then find relationships (Covariance), then directions (Eigen), then Project." },
     { mod: 2, q: "Why do we Standardize data before PCA?", options: ["To remove colors", "To make all features contribute equally", "To increase variance", "To make data smaller"], a: 1, exp: "If one feature ranges 0-1000 and another 0-1, the large one will dominate variance without standardization." },
     { mod: 2, q: "An image of 28x28 pixels is flattened to a vector of size...", options: ["28", "56", "784", "1024"], a: 2, exp: "28 * 28 = 784." },
     { mod: 2, q: "One-Hot Encoding converts 'Red' into...", options: ["1", "[1, 0, 0]", "0.5", "Red"], a: 1, exp: "It creates a sparse binary vector." },
     { mod: 2, q: "Eigenvalues represent...", options: ["Direction", "Variance (Magnitude)", "Error", "Mean"], a: 1, exp: "Eigenvectors are direction; Eigenvalues are magnitude." },
     { mod: 2, q: "A 3D Tensor typically represents...", options: ["A grayscale image", "A color image (RGB)", "A sound wave", "A text document"], a: 1, exp: "Height x Width x 3 Channels." },
-    { mod: 2, q: "SVD stands for...", options: ["Standard Vector Decomposition", "Singular Value Decomposition", "Simple Value Data", "Systematic Vector Data"], a: 1, exp: "A matrix factorization method used to solve PCA." },
+    { mod: 2, q: "SVD (Singular Value Decomposition) is used to...", options: ["Sort arrays", "Factorize a matrix (efficient PCA calculation)", "Add vectors", "Plot graphs"], a: 1, exp: "A matrix factorization method used to solve PCA efficiently." },
     { mod: 2, q: "What is a sparse vector?", options: ["A vector with mostly zeros", "A short vector", "A vector with negative numbers", "A broken vector"], a: 0, exp: "One-Hot encoded vectors are typically sparse." },
     { mod: 2, q: "Which vector operation measures similarity?", options: ["Addition", "Subtraction", "Dot Product", "Cross Product"], a: 2, exp: "Dot product is related to the cosine of the angle between vectors." },
 
-    // === MODULE 3 ===
+    // === MODULE 3: ALGORITHMS ===
     { mod: 3, q: "Linear Regression minimizes which cost function?", options: ["Accuracy", "MSE (Mean Squared Error)", "Entropy", "F1 Score"], a: 1, exp: "It minimizes the average squared distance between points and the line." },
-    { mod: 3, q: "In KNN, a small 'K' (e.g., K=1) usually leads to...", options: ["Underfitting (too smooth)", "Overfitting (sensitive to noise)", "Perfect accuracy", "Faster speed"], a: 1, exp: "With K=1, the model simply memorizes the nearest point, capturing noise." },
+    { mod: 3, q: "In K-Nearest Neighbors (KNN), a small 'K' (e.g., K=1) usually leads to...", options: ["Underfitting (too smooth)", "Overfitting (sensitive to noise)", "Perfect accuracy", "Faster speed"], a: 1, exp: "With K=1, the model simply memorizes the nearest point, capturing noise." },
     { mod: 3, q: "In a Confusion Matrix, a 'False Negative' (Type II) is...", options: ["A false alarm", "Missing a real positive case", "Correctly rejecting a negative", "Correctly finding a positive"], a: 1, exp: "Dangerous in medical diagnosis (telling a sick patient they are healthy)." },
     { mod: 3, q: "Recall (Sensitivity) is calculated as...", options: ["TP / (TP + FP)", "TP / (TP + FN)", "(TP + TN) / Total", "TN / (TN + FP)"], a: 1, exp: "It measures the percentage of Actual Positives that were correctly identified." },
     { mod: 3, q: "Which metric is best for imbalanced datasets (e.g., 99% healthy, 1% sick)?", options: ["Accuracy", "MSE", "F1-Score / AUC", "None"], a: 2, exp: "Accuracy is misleading here (99% accuracy by predicting 'Healthy' every time)." },
-    { mod: 3, q: "Support Vectors in SVM are...", options: ["The centroids", "The outliers", "Data points closest to the hyperplane", "The kernel functions"], a: 2, exp: "These critical points define the margin boundary." },
+    { mod: 3, q: "Support Vectors in Support Vector Machines (SVM) are...", options: ["The centroids", "The outliers", "Data points closest to the hyperplane", "The kernel functions"], a: 2, exp: "These critical points define the margin boundary." },
     { mod: 3, q: "The 'Kernel Trick' allows SVM to...", options: ["Run faster", "Classify non-linear data by mapping to higher dimensions", "Remove noise", "Use less memory"], a: 1, exp: "It finds a linear separator in a high-dimensional space." },
     { mod: 3, q: "Decision Trees split data to maximize...", options: ["Entropy", "Information Gain", "Error", "Variance"], a: 1, exp: "They try to reduce Entropy (randomness) at each step." },
     { mod: 3, q: "K-Means is what type of algorithm?", options: ["Supervised Classification", "Unsupervised Clustering", "Reinforcement", "Regression"], a: 1, exp: "It groups data without labels." },
     { mod: 3, q: "Entropy = 0 means...", options: ["Maximum randomness", "Perfect purity (all same class)", "The tree is empty", "High error"], a: 1, exp: "Zero entropy means no surprise/randomness." },
 
-    // === MODULE 4 ===
+    // === MODULE 4: ANN ===
     { mod: 4, q: "Without an Activation Function, a Neural Network is just...", options: ["Deep Learning", "Linear Regression", "A Support Vector Machine", "A Decision Tree"], a: 1, exp: "Stacking linear layers just results in one big linear layer." },
-    { mod: 4, q: "ReLU stands for...", options: ["Real Linear Unit", "Rectified Linear Unit", "Recurring Long Unit", "Random Learning Unit"], a: 1, exp: "It outputs max(0, x)." },
+    { mod: 4, q: "ReLU (Rectified Linear Unit) is defined as...", options: ["1 / (1 + e^-x)", "max(0, x)", "tanh(x)", "x^2"], a: 1, exp: "It outputs the input if positive, otherwise zero." },
     { mod: 4, q: "Which function causes Vanishing Gradient in deep nets?", options: ["ReLU", "Sigmoid", "Leaky ReLU", "Linear"], a: 1, exp: "Its derivative is always < 0.25, causing gradients to shrink to zero." },
     { mod: 4, q: "Backpropagation uses ______ to calculate gradients.", options: ["The Chain Rule", "Integration", "Matrix Inversion", "Random Guessing"], a: 0, exp: "It propagates error backwards layer by layer." },
-    { mod: 4, q: "What is an Epoch?", options: ["One batch update", "One full pass of the dataset", "The learning rate", "A neuron"], a: 1, exp: "Training usually takes many epochs." },
+    { mod: 4, q: "What is an Epoch?", options: ["One batch update", "One full pass of the entire dataset", "The learning rate", "A neuron"], a: 1, exp: "Training usually takes many epochs." },
     { mod: 4, q: "The 'Bias' in a neuron acts like...", options: ["The slope", "The y-intercept (shift)", "The weight", "The input"], a: 1, exp: "It allows the activation function to shift left or right." },
     { mod: 4, q: "Softmax is used in the...", options: ["Input layer", "Hidden layers", "Output layer (Multi-class)", "Convolution layer"], a: 2, exp: "It turns raw scores into probabilities summing to 1." },
     { mod: 4, q: "If Learning Rate is too high...", options: ["Convergence is slow", "The model might diverge/overshoot", "It is perfect", "The model stops"], a: 1, exp: "Like taking too big a step down a hill and falling over the other side." },
-    { mod: 4, q: "What does the Optimizer (e.g., Adam) do?", options: ["Calculates loss", "Updates weights", "Prepares data", "Initializes biases"], a: 1, exp: "It applies the gradient descent logic to change weights." },
+    { mod: 4, q: "What does the Optimizer (e.g., Adam) do?", options: ["Calculates loss", "Updates weights based on gradients", "Prepares data", "Initializes biases"], a: 1, exp: "It applies the gradient descent logic to change weights." },
     { mod: 4, q: "A Perceptron is...", options: ["A single artificial neuron", "A deep network", "A loss function", "A Python library"], a: 0, exp: "The simplest building block." },
 
-    // === MODULE 5 ===
-    { mod: 5, q: "CNNs are superior for images because...", options: ["They are faster", "They preserve spatial structure (pixels nearby matter)", "They ignore color", "They flatten data immediately"], a: 1, exp: "Convolutional filters look for local patterns like edges." },
+    // === MODULE 5: DL ===
+    { mod: 5, q: "Convolutional Neural Networks (CNNs) are superior for images because...", options: ["They are faster", "They preserve spatial structure (pixels nearby matter)", "They ignore color", "They flatten data immediately"], a: 1, exp: "Convolutional filters look for local patterns like edges." },
     { mod: 5, q: "What does Pooling do?", options: ["Increases size", "Down-samples (reduces size) to prevent overfitting", "Changes colors", "Adds weights"], a: 1, exp: "Max Pooling keeps only the strongest feature in a window." },
-    { mod: 5, q: "RNNs suffer from...", options: ["Short-term memory (Vanishing Gradient)", "Too much memory", "Being too slow", "High accuracy"], a: 0, exp: "They forget the start of long sentences." },
-    { mod: 5, q: "LSTM solves RNN issues using...", options: ["Convolution", "Gates (Forget, Input, Output)", "More layers", "Faster CPUs"], a: 1, exp: "Gates regulate what information is kept or discarded." },
+    { mod: 5, q: "Recurrent Neural Networks (RNNs) suffer from...", options: ["Short-term memory (Vanishing Gradient)", "Too much memory", "Being too slow", "High accuracy"], a: 0, exp: "They forget the start of long sentences." },
+    { mod: 5, q: "Long Short-Term Memory (LSTM) solves RNN issues using...", options: ["Convolution", "Gates (Forget, Input, Output)", "More layers", "Faster CPUs"], a: 1, exp: "Gates regulate what information is kept or discarded." },
     { mod: 5, q: "An Autoencoder's goal is to...", options: ["Classify images", "Reconstruct input from a compressed bottleneck", "Predict future", "Translate text"], a: 1, exp: "It learns efficient data compression unsupervised." },
     { mod: 5, q: "The 'Bottleneck' in an Autoencoder represents...", options: ["The input", "The latent space (compressed features)", "The error", "The output"], a: 1, exp: "It forces the network to learn the most important features." },
     { mod: 5, q: "Flattening happens...", options: ["Before Convolution", "Between Conv/Pool and Dense layers", "After Output", "Never"], a: 1, exp: "We must turn the 2D feature maps into a 1D vector for the final classification." },
@@ -59,15 +59,32 @@ window.rawQuestions = [
     { mod: 5, q: "Which is NOT a gate in LSTM?", options: ["Forget", "Input", "Output", "Window"], a: 3, exp: "Window is a concept, not a gate." },
     { mod: 5, q: "Deep Learning generally requires...", options: ["Less data", "More data and compute power", "Manual rules", "Only CPUs"], a: 1, exp: "It thrives on big data." },
 
-    // === MODULE 6 ===
+    // === MODULE 6: NLP ===
     { mod: 6, q: "Tokenization is...", options: ["Converting to numbers", "Splitting text into words/units", "Removing stopwords", "Stemming"], a: 1, exp: "The first step in understanding text." },
     { mod: 6, q: "Stemming vs Lemmatization: Which is accurate?", options: ["Stemming", "Lemmatization", "Both are same", "Neither"], a: 1, exp: "Lemmatization uses a dictionary to find the true root (Good vs Better)." },
-    { mod: 6, q: "TF-IDF highlights words that are...", options: ["Common everywhere (the, is)", "Rare in the corpus but frequent in the document", "Short", "Long"], a: 1, exp: "These are usually the keywords." },
+    { mod: 6, q: "TF-IDF (Term Frequency-Inverse Document Frequency) highlights words that are...", options: ["Common everywhere (the, is)", "Rare in the corpus but frequent in the document", "Short", "Long"], a: 1, exp: "These are usually the keywords." },
     { mod: 6, q: "Word2Vec allows for...", options: ["Alphabetical sorting", "Semantic math (King - Man + Woman = Queen)", "Faster printing", "Grammar checking"], a: 1, exp: "It maps meaning to vector space." },
     { mod: 6, q: "Transformers use which key mechanism?", options: ["Convolution", "Self-Attention", "Recurrence", "Pooling"], a: 1, exp: "Looking at all words at once to determine context." },
-    { mod: 6, q: "BERT is...", options: ["Decoder-only", "Encoder-only (Bidirectional)", "RNN-based", "Unsupervised only"], a: 1, exp: "It looks at text from both directions to understand context." },
-    { mod: 6, q: "GPT is...", options: ["Encoder-only", "Decoder-only (Autoregressive)", "For classification", "Small"], a: 1, exp: "It predicts the next word (Generative)." },
+    { mod: 6, q: "BERT (Bidirectional Encoder Representations from Transformers) is...", options: ["Decoder-only", "Encoder-only (Bidirectional)", "RNN-based", "Unsupervised only"], a: 1, exp: "It looks at text from both directions to understand context." },
+    { mod: 6, q: "GPT (Generative Pre-trained Transformer) is...", options: ["Encoder-only", "Decoder-only (Autoregressive)", "For classification", "Small"], a: 1, exp: "It predicts the next word (Generative)." },
     { mod: 6, q: "Hugging Face is...", options: ["A robot", "A repository for NLP models", "A coding language", "A university"], a: 1, exp: "The 'GitHub' of NLP." },
     { mod: 6, q: "Stop Words are...", options: ["Keywords", "Common words removed (the, a)", "Ending punctuation", "Errors"], a: 1, exp: "They add noise but little meaning." },
-    { mod: 6, q: "A 'Pipeline' in Hugging Face...", options: ["Connects servers", "Simplifies using models (Pre-process -> Model -> Post-process)", "Trains models", "Is a dataset"], a: 1, exp: "It creates an easy interface for tasks like Sentiment Analysis." }
+    { mod: 6, q: "A 'Pipeline' in Hugging Face...", options: ["Connects servers", "Simplifies using models (Pre-process -> Model -> Post-process)", "Trains models", "Is a dataset"], a: 1, exp: "It creates an easy interface for tasks like Sentiment Analysis." },
+
+    // === MODULE 7: APPLIED/CODE (NEW) ===
+    { mod: 7, q: "What is the shape of <code>np.zeros((3, 4))</code>?", options: ["(4, 3)", "(3, 4)", "(12)", "(7)"], a: 1, exp: "It creates a matrix with 3 rows and 4 columns." },
+    { mod: 7, q: "How do you check for missing values in Pandas?", options: ["df.missing()", "df.isnull().sum()", "df.check()", "df.void()"], a: 1, exp: "<code>isnull()</code> returns True for missing data." },
+    { mod: 7, q: "Which Keras method trains the model?", options: ["model.compile()", "model.fit()", "model.evaluate()", "model.predict()"], a: 1, exp: "<code>fit()</code> adapts the weights to the data." },
+    { mod: 7, q: "What does <code>model.add(Dense(32, activation='relu'))</code> do?", options: ["Adds a convolutional layer", "Adds a fully connected layer with 32 neurons", "Adds an output layer", "Compiles the model"], a: 1, exp: "Dense means Fully Connected." },
+    { mod: 7, q: "In Python, <code>arr[-1]</code> refers to...", options: ["The first element", "The last element", "An error", "The second element"], a: 1, exp: "Negative indexing counts from the end." },
+    { mod: 7, q: "Which function is used to convert categorical text to numbers?", options: ["StandardScaler", "LabelEncoder", "MinMaxScaler", "LinearRegression"], a: 1, exp: "LabelEncoder turns ['Cat', 'Dog'] into [0, 1]." },
+    { mod: 7, q: "The output of <code>np.array([1, 2]) * 3</code> is...", options: ["[1, 2, 1, 2, 1, 2]", "[3, 6]", "Error", "[1, 2, 3]"], a: 1, exp: "NumPy uses vectorization (element-wise multiplication)." },
+    { mod: 7, q: "What does <code>random_state=42</code> ensure?", options: ["Better accuracy", "Reproducibility (same random split every time)", "Faster training", "Nothing"], a: 1, exp: "It sets the seed for the random number generator." },
+    { mod: 7, q: "To load a CSV file, you use...", options: ["np.load_csv()", "pd.read_csv()", "csv.get()", "pd.csv()"], a: 1, exp: "Pandas standard function." },
+    { mod: 7, q: "What is the result of <code>len([1, 2, 3])</code>?", options: ["2", "3", "4", "0"], a: 1, exp: "Returns the number of items in the list." },
+    { mod: 7, q: "In Keras, <code>input_shape=(28, 28, 1)</code> defines...", options: ["A color image", "A 1D vector", "A grayscale image of 28x28", "A video"], a: 2, exp: "Height 28, Width 28, Channels 1 (Grayscale)." },
+    { mod: 7, q: "What does <code>df.head()</code> do?", options: ["Shows the first 5 rows", "Shows the headers", "Shows the last 5 rows", "Deletes the top row"], a: 0, exp: "Useful for a quick data inspection." },
+    { mod: 7, q: "Which library is built on top of NumPy?", options: ["Pandas", "React", "Django", "Flask"], a: 0, exp: "Pandas relies heavily on NumPy arrays." },
+    { mod: 7, q: "To reshape a 1D array of 10 elements to 2x5, use...", options: ["arr.resize(2,5)", "arr.reshape(2,5)", "arr.split(2)", "arr.transform(2,5)"], a: 1, exp: "Reshape changes dimensions without changing data." },
+    { mod: 7, q: "What does <code>plt.plot(x, y)</code> do in Matplotlib?", options: ["Scatters points", "Draws a line chart", "Draws a bar chart", "Shows an image"], a: 1, exp: "The standard function for line plots." }
 ];
