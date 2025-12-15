@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DAT305 - Ultimate Exam Prep</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
@@ -30,192 +29,320 @@
         
         <section id="mod1" class="module active">
             <div class="header-banner">
-                <h1>Module 1: Introduction to AI & ML</h1>
-                <p>Fundamental Concepts, Learning Paradigms & Python Tools</p>
+                <h1>Modul 1: Intro til AI & ML</h1>
+                <p>Grunnleggende konsepter, Læringsparadigmer & Python-økosystemet</p>
             </div>
 
             <div class="slide">
-                <h3>1.1 AI vs ML vs DL</h3>
+                <h3>1.1 AI vs ML vs DL: Hva er forskjellen?</h3>
                 <div class="diagram-container">
                     <div class="flow-chart">
-                        <div class="flow-box"><strong>AI</strong><br>Artificial Intelligence</div>
+                        <div class="flow-box"><strong>AI</strong><br>Datamaskiner som "tenker"</div>
                         <div class="flow-arrow">&supset;</div>
-                        <div class="flow-box highlight"><strong>ML</strong><br>Machine Learning</div>
+                        <div class="flow-box highlight"><strong>ML</strong><br>Lærer fra data (ingen hardkoding)</div>
                         <div class="flow-arrow">&supset;</div>
-                        <div class="flow-box warning"><strong>DL</strong><br>Deep Learning</div>
+                        <div class="flow-box warning"><strong>DL</strong><br>Nevrale nettverk (Flere lag)</div>
                     </div>
                 </div>
-                <p><strong>The Core Difference:</strong></p>
-                <ul>
-                    <li><strong>Traditional Programming:</strong> Rules + Data = Answers.</li>
-                    <li><strong>Machine Learning:</strong> Data + Answers = Rules (The model learns the logic).</li>
-                </ul>
+                <div class="concept-box">
+                    <h5>🔑 Nøkkelkonsept: The Paradigm Shift</h5>
+                    <p><strong>Tradisjonell Programmering:</strong> Du gir reglene og dataene $\rightarrow$ Maskinen gir svaret.<br>
+                    <strong>Machine Learning:</strong> Du gir dataene og fasitsvarene $\rightarrow$ Maskinen finner reglene.</p>
+                </div>
             </div>
-            
+
             <div class="slide">
-                <h3>1.2 Types of Learning</h3>
+                <h3>1.2 Generalisering: Overfitting vs Underfitting</h3>
+                <p>Målet med ML er ikke å huske dataene (pugging), men å forstå mønsteret (lære) slik at vi kan spå på <em>nye</em> data.</p>
+                
                 <div class="grid-3">
                     <div class="card">
-                        <h4><i class="fas fa-tag"></i> Supervised</h4>
-                        <p>Learning with a "Teacher" (Labels).</p>
-                        <ul class="detail-list">
-                            <li><strong>Regression:</strong> Predicting numbers (Prices, Temp).</li>
-                            <li><strong>Classification:</strong> Predicting classes (Spam/Ham).</li>
-                        </ul>
+                        <h4>Underfitting</h4>
+                        <p>Modellen er for enkel. Den skjønner ikke poenget. (F.eks. prøve å beskrive en bue med en rett linje).</p>
+                        <div style="height:5px; background:red; width:30%; margin-top:5px;"></div>
+                        <small>High Bias</small>
+                    </div>
+                    <div class="card" style="border-color:var(--success);">
+                        <h4>Just Right</h4>
+                        <p>Modellen fanger trenden, men ignorerer støy. God <strong>Generalisering</strong>.</p>
+                        <div style="height:5px; background:var(--success); width:70%; margin-top:5px;"></div>
+                        <small>Low Bias, Low Variance</small>
                     </div>
                     <div class="card">
-                        <h4><i class="fas fa-search"></i> Unsupervised</h4>
-                        <p>Self-discovery (No Labels).</p>
-                        <ul class="detail-list">
-                            <li><strong>Clustering:</strong> Grouping similar items (K-Means).</li>
-                            <li><strong>Dim. Reduction:</strong> Compressing data (PCA).</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h4><i class="fas fa-robot"></i> Reinforcement</h4>
-                        <p>Learning by Interaction.</p>
-                        <ul class="detail-list">
-                            <li><strong>Agent:</strong> The learner.</li>
-                            <li><strong>Reward:</strong> Feedback signal.</li>
-                            <li>Goal: Maximize cumulative reward.</li>
-                        </ul>
+                        <h4>Overfitting</h4>
+                        <p>Modellen pugger støyen. Fungerer perfekt på trening, men feiler på test.</p>
+                        <div style="height:5px; background:blue; width:100%; margin-top:5px;"></div>
+                        <small>High Variance</small>
                     </div>
                 </div>
+
+                <div class="graph-container">
+                    <svg class="graph-line" viewBox="0 0 100 50">
+                        <path d="M0,50 Q25,10 50,40 T100,20" stroke="#2ecc71" fill="none" stroke-dasharray="4" />
+                        <path d="M0,50 L10,10 L20,45 L30,5 L40,40 L50,10 L60,45 L70,5 L80,40 L90,10 L100,50" stroke="#3498db" fill="none" opacity="0.5" />
+                    </svg>
+                    <div class="dot" style="bottom:10px; left:25%;"></div>
+                    <div class="dot" style="bottom:40px; left:50%;"></div>
+                    <div class="dot" style="bottom:20px; left:75%;"></div>
+                    <div class="graph-label">Grønn = Bra modell | Blå = Overfitting (Sikk-sakk)</div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <h3>1.3 Python Libraries (Hva brukes når?)</h3>
+                <table class="comparison-table">
+                    <tr><th>Bibliotek</th><th>Analogi</th><th>Hovedoppgave</th></tr>
+                    <tr><td><strong>NumPy</strong></td><td>Kalkulatoren</td><td>Raske matriseoperasjoner, vektorer. Alt annet bygger på denne.</td></tr>
+                    <tr><td><strong>Pandas</strong></td><td>Excel-arket</td><td>Lese filer (CSV), rydde data, fylle inn manglende verdier.</td></tr>
+                    <tr><td><strong>Matplotlib</strong></td><td>Tegnebrettet</td><td>Plotting av grafer.</td></tr>
+                    <tr><td><strong>Scikit-Learn</strong></td><td>Verktøykassen</td><td>Ferdige ML-algoritmer (Regression, SVM, PCA).</td></tr>
+                    <tr><td><strong>Keras/TensorFlow</strong></td><td>Hjernen</td><td>Deep Learning og nevrale nettverk.</td></tr>
+                </table>
             </div>
         </section>
 
         <section id="mod2" class="module">
             <div class="header-banner">
-                <h1>Module 2: Mathematics for AI</h1>
-                <p>Linear Algebra, Data Representation & PCA</p>
+                <h1>Modul 2: Matematikk for AI</h1>
+                <p>Lineær Algebra, Dimensjonsreduksjon & PCA</p>
             </div>
+            
             <div class="slide">
-                <h3>2.1 Vectors & Operations</h3>
+                <h3>2.1 Vektorer: Språket til AI</h3>
+                <p>Maskiner forstår ikke "Eple" eller "Bilde". De forstår lister med tall (vektorer).</p>
+                
                 <div class="grid-2">
-                    <div>
-                        <p><strong>Vector:</strong> Magnitude & Direction. Represents a data point's features.</p>
-                        <p><strong>Dot Product:</strong> $\mathbf{a} \cdot \mathbf{b} = \sum a_i b_i$.</p>
-                        <p class="note">Crucial: If Dot Product is 0, vectors are <strong>Orthogonal</strong> (Uncorrelated).</p>
+                    <div class="concept-box">
+                        <h5>Dot Product (Prikkprodukt)</h5>
+                        <p>$\mathbf{a} \cdot \mathbf{b} = \sum a_i b_i$</p>
+                        <p>Dette er et mål på <strong>Likhet</strong>. Hvis produktet er høyt, peker vektorene samme vei (de er like).</p>
+                        <p><strong>Viktig:</strong> Hvis $\mathbf{a} \cdot \mathbf{b} = 0$, er de <em>Ortogonale</em> (vinkelrette). De har 0 korrelasjon.</p>
                     </div>
-                    <div class="matrix-visual">
-                        [ 2, 5 ] &middot; [ 3, 1 ] = (2*3) + (5*1) = 11
+                    <div style="display:flex; align-items:center; justify-content:center;">
+                        <div style="position:relative; width:150px; height:150px; border-left:2px solid #333; border-bottom:2px solid #333;">
+                            <div style="position:absolute; bottom:0; left:0; width:100px; height:2px; background:blue; transform:rotate(-10deg); transform-origin:left;"></div>
+                            <div style="position:absolute; bottom:0; left:0; width:100px; height:2px; background:red; transform:rotate(-80deg); transform-origin:left;"></div>
+                            <div style="position:absolute; top:20px; right:20px;">Ortogonale (0 likhet)</div>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="slide">
-                <h3>2.2 Dimensionality Reduction (PCA)</h3>
-                <p><strong>Principal Component Analysis</strong> allows us to visualize high-dimensional data and remove noise.</p>
+                <h3>2.2 PCA: Principal Component Analysis</h3>
+                <p><strong>Hvorfor?</strong> Tenk deg et regneark med 100 kolonner. Det er umulig å visualisere. PCA komprimerer dette til 2-3 "Hovedkomponenter" som beholder mesteparten av informasjonen (variansen).</p>
+                
                 <div class="process-steps">
                     <div class="step">1. Standardize</div>
-                    <div class="step-desc">Scale data (Mean=0, Var=1) so large units don't dominate.</div>
+                    <div class="step-desc">Gjør at alle variabler teller likt (Mean=0, Variance=1). Ellers vil "Lønn" (1 000 000) overkjøre "Alder" (30).</div>
+                    
                     <div class="step">2. Covariance Matrix</div>
-                    <div class="step-desc">Calculate relationships between variables.</div>
+                    <div class="step-desc">Finner ut hvordan variablene varierer sammen. (Er alder og lønn koblet?)</div>
+                    
                     <div class="step">3. Eigen-Decomposition</div>
-                    <div class="step-desc">Find <strong>Eigenvectors</strong> (Direction) & <strong>Eigenvalues</strong> (Magnitude/Variance).</div>
-                    <div class="step">4. Projection</div>
-                    <div class="step-desc">Project data onto the top $K$ eigenvectors.</div>
+                    <div class="step-desc">Matematisk magi som finner "retningene" (Eigenvectors) med mest spredning i dataene. <strong>Eigenvalue</strong> sier hvor viktig retningen er.</div>
+                    
+                    <div class="step">4. Project</div>
+                    <div class="step-desc">Vi roterer og kaster de minste dimensjonene.</div>
                 </div>
             </div>
         </section>
 
         <section id="mod3" class="module">
             <div class="header-banner">
-                <h1>Module 3: Algorithms</h1>
-                <p>Classic Machine Learning Models & Evaluation</p>
+                <h1>Modul 3: Algoritmer</h1>
+                <p>Klassisk Maskinlæring & Evaluering</p>
             </div>
+
             <div class="slide">
-                <h3>3.1 The Algorithms</h3>
+                <h3>3.1 Klassifikatorer visualisert</h3>
+                
                 <div class="grid-2">
                     <div class="card">
-                        <h4><i class="fas fa-chart-line"></i> Linear Regression</h4>
-                        <p>Fitting a line. Uses <strong>MSE (Mean Squared Error)</strong>.</p>
+                        <h4>SVM (Support Vector Machine)</h4>
+                        <p>Prøver å legge en vei mellom to grupper som er så bred som mulig.</p>
+                        <div class="svm-visual">
+                            <div class="svm-margin"></div>
+                            <div class="svm-line"></div>
+                            <div class="dot" style="top:40px; left:30%; background:blue;"></div>
+                            <div class="dot" style="top:100px; left:70%; background:red;"></div>
+                        </div>
+                        <p><strong>Kernel Trick:</strong> Hvis dataene ikke kan skilles med en rett linje, løfter SVM dem opp i 3D slik at man kan sette inn et "ark" mellom dem.</p>
                     </div>
+                    
                     <div class="card">
-                        <h4><i class="fas fa-project-diagram"></i> KNN (K-Nearest Neighbors)</h4>
-                        <p><strong>Lazy Learner.</strong> Predicts based on neighbors. Small K = Overfitting.</p>
-                    </div>
-                    <div class="card">
-                        <h4><i class="fas fa-vector-square"></i> SVM (Support Vector Machine)</h4>
-                        <p>Finds Hyperplane with max <strong>Margin</strong>. Uses <strong>Kernel Trick</strong> for non-linear data.</p>
-                    </div>
-                    <div class="card">
-                        <h4><i class="fas fa-tree"></i> Decision Trees</h4>
-                        <p>Splits data to reduce <strong>Entropy</strong>. Goal: High Information Gain.</p>
+                        <h4>Decision Trees (Beslutningstrær)</h4>
+                        <p>Stiller en rekke Ja/Nei spørsmål for å splitte dataene.</p>
+                        <div class="tree-visual">
+                            <div class="tree-node">Er det vinger?</div>
+                            <div class="tree-branches">
+                                <div>
+                                    <div class="tree-connector"></div>
+                                    <div class="tree-node">Ja: Fugl</div>
+                                </div>
+                                <div>
+                                    <div class="tree-connector"></div>
+                                    <div class="tree-node">Nei: Katt</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p><strong>Random Forest:</strong> Mange trær som stemmer over svaret. Hindrer overfitting.</p>
                     </div>
                 </div>
             </div>
+
             <div class="slide">
-                <h3>3.2 Evaluation Metrics</h3>
-                <div class="confusion-matrix-visual">
-                    <div class="cm-header"></div><div class="cm-header">Pred: YES</div><div class="cm-header">Pred: NO</div>
-                    <div class="cm-header">Actual: YES</div><div class="cm-cell tp">TP</div><div class="cm-cell fn">FN (Danger)</div>
-                    <div class="cm-header">Actual: NO</div><div class="cm-cell fp">FP</div><div class="cm-cell tn">TN</div>
+                <h3>3.2 Evaluering: Ikke stol på "Accuracy"!</h3>
+                <div class="concept-box">
+                    <h5>Hvorfor feiler Accuracy?</h5>
+                    <p>Hvis du lager en kreft-test og 99% av pasientene er friske, kan modellen din bare si "Frisk" til alle. Den har 99% accuracy, men den dreper 1% av pasientene (de syke).</p>
                 </div>
-                <p><strong>Accuracy:</strong> Good for balanced data.<br><strong>F1-Score:</strong> Harmonic mean of Precision/Recall. Good for imbalanced data.</p>
+
+                <table class="comparison-table">
+                    <tr><th>Metrikk</th><th>Formel</th><th>Bruk når...</th></tr>
+                    <tr><td><strong>Recall</strong> (Sensitivity)</td><td>$TP / (TP + FN)$</td><td>Du MÅ finne alle tilfeller (Kreft, Brannalarm). Det er greit med falsk alarm, men katastrofe å overse noe.</td></tr>
+                    <tr><td><strong>Precision</strong></td><td>$TP / (TP + FP)$</td><td>Du hater falske alarmer (Spam-filter). Du vil ikke at viktig epost havner i søppelpost.</td></tr>
+                    <tr><td><strong>F1-Score</strong></td><td>$2 \cdot \frac{P \cdot R}{P + R}$</td><td>Når du trenger en balanse mellom begge (Imbalanserte datasett).</td></tr>
+                </table>
             </div>
         </section>
 
         <section id="mod4" class="module">
             <div class="header-banner">
-                <h1>Module 4: Artificial Neural Networks</h1>
-                <p>Perceptrons, Backpropagation & The Brain</p>
+                <h1>Modul 4: Nevrale Nettverk</h1>
+                <p>The Brain of AI</p>
             </div>
+
             <div class="slide">
-                <h3>4.1 The Artificial Neuron</h3>
-                <p>$$ y = Activation(\sum (Inputs \times Weights) + Bias) $$</p>
-                <div class="neuron-visual">
-                    <div class="inputs"><div class="input-node">x</div></div>
-                    <div class="synapses"><div class="line">w</div></div>
-                    <div class="body">$\sum$</div>
-                    <div class="output-arrow">&rarr; y</div>
+                <h3>4.1 Hvordan lærer nettverket? (Gradient Descent)</h3>
+                <p>Tenk at du står på toppen av et fjell i tåka (Høy Error). Du vil ned til dalbunnen (Lav Error/Loss). Du ser bare 1 meter foran deg.</p>
+                
+                <div class="grid-2">
+                    <div>
+                        <ul class="detail-list">
+                            <li><strong>Loss Function:</strong> Høydemåleren. Forteller hvor dårlig modellen er akkurat nå. (f.eks. MSE).</li>
+                            <li><strong>Gradient:</strong> Helningen bakken har der du står. Pekere nedover.</li>
+                            <li><strong>Learning Rate:</strong> Hvor store skritt du tar.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="hill-visual">
+                            <div class="ball"></div>
+                        </div>
+                        <p class="hill-label">Ballen ruller mot laveste punkt (Global Minima)</p>
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <h5>⚠️ Learning Rate problemer</h5>
+                    <p><strong>For høy:</strong> Du hopper over dalbunnen og havner på fjellet på andre siden (Diverging).<br>
+                    <strong>For lav:</strong> Det tar evigheter å komme ned (Slow convergence).</p>
                 </div>
             </div>
+
             <div class="slide">
-                <h3>4.2 Activation Functions</h3>
-                <ul class="detail-list">
-                    <li><strong>Sigmoid:</strong> (0 to 1). Problem: Vanishing Gradient.</li>
-                    <li><strong>ReLU:</strong> (0 to inf). Solves Vanishing Gradient. Standard.</li>
-                    <li><strong>Softmax:</strong> Output layer for multi-class prob.</li>
-                </ul>
+                <h3>4.2 Backpropagation (Motoren)</h3>
+                <p>Når nettverket gjetter feil, må vi fortelle <em>hvem</em> som hadde skylda. Backpropagation går baklengs fra output til input og justerer vektene.</p>
+                <div class="process-steps">
+                    <div class="step">1. Forward Pass</div>
+                    <div class="step-desc">Data går inn $\rightarrow$ Prediksjon kommer ut.</div>
+                    <div class="step">2. Beregn Feil</div>
+                    <div class="step-desc">Fasit - Prediksjon = Error.</div>
+                    <div class="step">3. Backpropagate</div>
+                    <div class="step-desc">Bruk <strong>Kjerneregelen (Chain Rule)</strong> for å finne gradienten til hver vekt.</div>
+                    <div class="step">4. Update</div>
+                    <div class="step-desc">$NewWeight = OldWeight - (LearningRate \cdot Gradient)$</div>
+                </div>
             </div>
         </section>
 
         <section id="mod5" class="module">
             <div class="header-banner">
-                <h1>Module 5: Deep Learning</h1>
-                <p>CNN, RNN, LSTM & Autoencoders</p>
+                <h1>Modul 5: Deep Learning</h1>
+                <p>CNN, RNN & Avanserte Arkitekturer</p>
             </div>
+
             <div class="slide">
-                <h3>5.1 CNN (Images)</h3>
-                <p>Uses <strong>Convolutions</strong> (Filters) to extract features and <strong>Pooling</strong> to reduce size.</p>
+                <h3>5.1 CNN: Computer Vision</h3>
+                <p>Hvorfor kan vi ikke bare bruke vanlige nettverk på bilder? Fordi de ødelegger strukturen (flater ut bildet). CNN ser på "nabolag" av piksler.</p>
+                
+                <div class="cnn-visual">
+                    <div class="cnn-layer" style="background:#34495e; width:80px; height:80px;">Input<br>Bilde</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="cnn-layer" style="background:#e67e22; width:60px; height:60px;">Conv<br>(Filter)</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="cnn-layer" style="background:#c0392b; width:40px; height:40px;">Pool<br>(Krymp)</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="cnn-layer" style="background:#27ae60; width:80px; height:20px;">Flatten</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="cnn-layer" style="background:#8e44ad; width:20px; height:80px;">Dense</div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Convolution (Filter)</h4>
+                        <p>Et lite vindu (kernel) glir over bildet og ser etter features: En strek, et hjørne, et øye. Bevarer romlig informasjon.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Max Pooling</h4>
+                        <p>Tar det høyeste tallet i et område. "Er det et øye her? JA!" (Vi bryr oss ikke om nøyaktig piksel, bare at det finnes).</p>
+                    </div>
+                </div>
             </div>
+
             <div class="slide">
-                <h3>5.2 RNN & LSTM (Text/Time)</h3>
-                <p><strong>RNN:</strong> Has memory but suffers Vanishing Gradient (forgets long term).</p>
-                <p><strong>LSTM:</strong> Uses Gates (Forget, Input, Output) to fix memory.</p>
+                <h3>5.2 RNN & LSTM: Sekvenser</h3>
+                <p>Vanlige nettverk har ingen hukommelse. RNN sender info fra fortiden videre til fremtiden.</p>
+                <div class="concept-box">
+                    <h5>Problemet: Vanishing Gradient</h5>
+                    <p>I en lang setning glemmer en enkel RNN starten av setningen før den når slutten. Gradienten dør ut.</p>
+                    <p><strong>Løsning: LSTM (Long Short-Term Memory).</strong> Den har egne "porter" (gates) som bestemmer hva som skal huskes og hva som skal glemmes.</p>
+                </div>
             </div>
         </section>
 
         <section id="mod6" class="module">
             <div class="header-banner">
-                <h1>Module 6: NLP</h1>
-                <p>Natural Language Processing & Transformers</p>
+                <h1>Modul 6: NLP</h1>
+                <p>Språkteknologi & Transformere</p>
             </div>
+
             <div class="slide">
-                <h3>6.1 Preprocessing</h3>
-                <p>Tokenization &rarr; Stop Words Removal &rarr; Lemmatization.</p>
+                <h3>6.1 Fra ord til tall (Embeddings)</h3>
+                <p><strong>One-Hot Encoding:</strong> [0, 0, 1, 0...] er dårlig fordi alle ord er like forskjellige. "Konge" og "Dronning" har ingen kobling.</p>
+                <p><strong>Word Embeddings (Word2Vec):</strong> Ord plasseres i et rom. Ord som betyr det samme ligger nærme hverandre.</p>
+                <div class="code-card">
+                    <pre><code># Magien med vektorer:
+Vector("King") - Vector("Man") + Vector("Woman") ≈ Vector("Queen")</code></pre>
+                </div>
             </div>
+
             <div class="slide">
-                <h3>6.2 Transformers</h3>
-                <p><strong>BERT:</strong> Encoder (Context). <strong>GPT:</strong> Decoder (Generation).</p>
-                <p>Key Tech: <strong>Self-Attention</strong> (Looking at all words at once).</p>
+                <h3>6.2 The Transformer Revolution (BERT & GPT)</h3>
+                <p>Før leste vi tekst fra venstre mot høyre (RNN). Transformere leser <em>hele setningen samtidig</em>.</p>
+                
+                <div class="diagram-container">
+                    <strong>Self-Attention Mechanism:</strong><br>
+                    Når modellen ser ordet "Bank", ser den på konteksten for å vite om det er "Elvebank" eller "Pengebank".
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>BERT (Encoder)</h4>
+                        <p>Leser begge veier. Fyller inn manglende ord. <br><em>"Jeg liker ____ på pizza."</em><br>Perfekt til forståelse og klassifisering.</p>
+                    </div>
+                    <div class="card">
+                        <h4>GPT (Decoder)</h4>
+                        <p>Leser bare forover. Gjetter neste ord. <br><em>"Det var en gang en..."</em><br>Perfekt til å skrive tekst (Generering).</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="mod7" class="module">
             <div class="header-banner">
-                <h1>Module 7: Applied AI & Code</h1>
-                <p>Practical Implementation Cheat Sheet</p>
+                <h1>Modul 7: Praktisk Koding</h1>
+                <p>Cheat Sheet for Implementering</p>
             </div>
 
             <div class="slide">
@@ -224,25 +351,18 @@
                     <div class="code-card">
                         <h4>Arrays & Shapes</h4>
                         <pre><code>import numpy as np
-
 # Create array
 arr = np.array([1, 2, 3])
-
-# Create 2x3 matrix of zeros
+# 2x3 matrix of zeros
 z = np.zeros((2, 3)) 
-
 # Check shape -> (2, 3)
-print(z.shape)
-
-# Reshape to 3x2
-z.reshape(3, 2)</code></pre>
+print(z.shape)</code></pre>
                     </div>
                     <div class="code-card">
                         <h4>Math Operations</h4>
                         <pre><code># Element-wise multiply
 a * b 
-
-# Dot Product (Matrix Mult)
+# Dot Product
 np.dot(a, b) 
 # OR
 a @ b</code></pre>
@@ -251,24 +371,7 @@ a @ b</code></pre>
             </div>
 
             <div class="slide">
-                <h3>7.2 Scikit-Learn Workflow</h3>
-                <div class="process-steps">
-                    <div class="step">1. Split</div>
-                    <div class="step-desc"><code>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)</code></div>
-                    
-                    <div class="step">2. Preprocess</div>
-                    <div class="step-desc"><code>scaler = StandardScaler()<br>X_scaled = scaler.fit_transform(X_train)</code></div>
-                    
-                    <div class="step">3. Train</div>
-                    <div class="step-desc"><code>model = LinearRegression()<br>model.fit(X_train, y_train)</code></div>
-                    
-                    <div class="step">4. Evaluate</div>
-                    <div class="step-desc"><code>preds = model.predict(X_test)<br>acc = accuracy_score(y_test, preds)</code></div>
-                </div>
-            </div>
-
-            <div class="slide">
-                <h3>7.3 Keras (Deep Learning)</h3>
+                <h3>7.3 Keras (Deep Learning) Workflow</h3>
                 <pre><code>from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
@@ -276,8 +379,6 @@ from tensorflow.keras.layers import Dense
 model = Sequential()
 
 # 2. Add Layers (Input + Hidden)
-# Dense = Fully Connected. 
-# 128 neurons, ReLU activation.
 model.add(Dense(128, activation='relu', input_shape=(784,)))
 
 # 3. Output Layer (10 classes)
@@ -293,14 +394,14 @@ model.fit(X_train, y_train, epochs=5)</code></pre>
 
         <section id="quiz-setup" class="module">
             <div class="header-banner">
-                <h1>Exam Simulator</h1>
-                <p>Comprehensive Assessment for DAT305</p>
+                <h1>Eksamenssimulator</h1>
+                <p>Test deg selv i hele pensum</p>
             </div>
             <div class="slide" style="text-align: center;">
-                <h3>Select Assessment Mode:</h3>
+                <h3>Velg modus:</h3>
                 <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
-                    <button class="btn-primary" onclick="startQuiz('all')">Full Exam (Random 60)</button>
-                    <button class="btn-secondary" onclick="document.getElementById('mod-select').classList.remove('hidden')">Practice Specific Module</button>
+                    <button class="btn-primary" onclick="startQuiz('all')">Full Eksamen (60 spm)</button>
+                    <button class="btn-secondary" onclick="document.getElementById('mod-select').classList.remove('hidden')">Øv på modul</button>
                 </div>
                 <div id="mod-select" class="hidden" style="margin-top: 20px;">
                     <button class="btn-outline" onclick="startQuiz(1)">Mod 1</button>
@@ -309,7 +410,7 @@ model.fit(X_train, y_train, epochs=5)</code></pre>
                     <button class="btn-outline" onclick="startQuiz(4)">Mod 4</button>
                     <button class="btn-outline" onclick="startQuiz(5)">Mod 5</button>
                     <button class="btn-outline" onclick="startQuiz(6)">Mod 6</button>
-                    <button class="btn-outline" onclick="startQuiz(7)">Mod 7 (Code)</button>
+                    <button class="btn-outline" onclick="startQuiz(7)">Mod 7 (Kode)</button>
                 </div>
             </div>
         </section>
@@ -317,13 +418,13 @@ model.fit(X_train, y_train, epochs=5)</code></pre>
         <section id="quiz-area" class="hidden">
             <div class="quiz-container-wrapper">
                 <div class="quiz-header">
-                    <h2><i class="fas fa-pen-fancy"></i> Assessment</h2>
-                    <div class="stats-badge" id="quiz-status">Preparing...</div>
+                    <h2><i class="fas fa-pen-fancy"></i> Eksamen</h2>
+                    <div class="stats-badge" id="quiz-status">Klargjør...</div>
                 </div>
                 <div id="quiz-list-container"></div>
                 <div class="quiz-footer-actions">
-                    <button id="finish-btn" class="btn-primary" onclick="submitQuizSheet()">Submit Exam</button>
-                    <button id="retry-btn" class="btn-secondary hidden" onclick="location.reload()">Take Another Exam</button>
+                    <button id="finish-btn" class="btn-primary" onclick="submitQuizSheet()">Lever Eksamen</button>
+                    <button id="retry-btn" class="btn-secondary hidden" onclick="location.reload()">Ta ny eksamen</button>
                 </div>
             </div>
         </section>

@@ -109,3 +109,64 @@ pre code { background: none; color: inherit; padding: 0; }
 .btn-outline { background: white; border: 2px solid var(--accent); color: var(--accent); padding: 8px 15px; border-radius: 20px; cursor: pointer; margin: 5px; font-weight: bold; }
 .btn-outline:hover { background: var(--accent); color: white; }
 .hidden { display: none !important; }
+
+/* --- LEGG TIL ELLER ERSTATT I STYLE.CSS --- */
+
+/* Generelle forbedringer */
+p { margin-bottom: 15px; color: #444; }
+strong { color: var(--primary); }
+em { color: #666; font-style: italic; }
+
+/* Code Blocks (fra forrige svar) */
+pre { background: #282c34; color: #abb2bf; padding: 15px; border-radius: 8px; overflow-x: auto; font-family: 'Consolas', monospace; font-size: 0.9rem; margin-top: 10px; }
+code { font-family: 'Consolas', monospace; background: #eee; padding: 2px 5px; border-radius: 4px; color: #c7254e; }
+pre code { background: none; color: inherit; padding: 0; }
+
+/* VISUAL: Overfitting Graph */
+.graph-container {
+    height: 150px; border-left: 2px solid #333; border-bottom: 2px solid #333; margin: 20px auto; position: relative; width: 80%;
+}
+.graph-line {
+    position: absolute; width: 100%; height: 100%; fill: none; stroke-width: 3;
+}
+.graph-label { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; color: #666; }
+.dot { width: 8px; height: 8px; background: #e74c3c; border-radius: 50%; position: absolute; }
+
+/* VISUAL: SVM Margin */
+.svm-visual {
+    height: 150px; background: #f8f9fa; border: 1px solid #ddd; position: relative; margin: 20px 0; overflow: hidden;
+}
+.svm-line {
+    position: absolute; top: 0; left: 50%; width: 4px; height: 100%; background: var(--primary); transform: rotate(15deg);
+}
+.svm-margin {
+    position: absolute; top: 0; left: 50%; width: 60px; height: 100%; background: rgba(52, 152, 219, 0.2); transform: rotate(15deg) translateX(-50%); border-left: 1px dashed var(--accent); border-right: 1px dashed var(--accent);
+}
+
+/* VISUAL: Decision Tree */
+.tree-visual { display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 20px 0; }
+.tree-node { padding: 8px 15px; border: 2px solid var(--primary); border-radius: 20px; background: white; font-size: 0.9rem; position: relative; }
+.tree-branches { display: flex; gap: 40px; }
+.tree-connector { width: 1px; height: 15px; background: #ccc; margin: 0 auto; }
+
+/* VISUAL: Gradient Descent Hill */
+.hill-visual {
+    height: 120px; width: 100%; background: linear-gradient(to right, #e74c3c, #f1c40f, #2ecc71, #f1c40f, #e74c3c);
+    border-radius: 0 0 50% 50% / 0 0 100% 100%; position: relative; margin-top:10px; opacity: 0.8;
+}
+.ball {
+    width: 20px; height: 20px; background: var(--primary); border-radius: 50%; position: absolute; top: 10px; left: 10%; transition: 1s; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.hill-label { text-align: center; margin-top: 5px; font-size: 0.8rem; font-weight: bold; }
+
+/* Key Concept Box */
+.concept-box {
+    background: #e8f6f3; border-left: 5px solid #1abc9c; padding: 15px; margin: 15px 0; border-radius: 4px;
+}
+.concept-box h5 { margin: 0 0 5px 0; color: #16a085; font-size: 1rem; }
+
+/* Tabell styling for sammenligninger */
+.comparison-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+.comparison-table th, .comparison-table td { border: 1px solid #eee; padding: 10px; text-align: left; font-size: 0.9rem; }
+.comparison-table th { background: var(--primary); color: white; }
+.comparison-table tr:nth-child(even) { background: #f9f9f9; }
