@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DAT305 - Ultimate Exam Prep</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
@@ -29,12 +30,12 @@
         
         <section id="mod1" class="module active">
             <div class="header-banner">
-                <h1>Modul 1: Intro til AI & ML</h1>
-                <p>Grunnleggende konsepter: Artificial Intelligence & Machine Learning</p>
+                <h1>Module 1: Intro to AI & ML</h1>
+                <p>Fundamental Concepts: Artificial Intelligence & Machine Learning</p>
             </div>
 
             <div class="slide">
-                <h3>1.1 AI vs ML vs DL: Hva betyr forkortelsene?</h3>
+                <h3>1.1 AI vs ML vs DL: What do the acronyms mean?</h3>
                 <div class="diagram-container">
                     <div class="flow-chart">
                         <div class="flow-box"><strong>AI</strong><br>Artificial<br>Intelligence</div>
@@ -45,76 +46,87 @@
                     </div>
                 </div>
                 <div class="concept-box">
-                    <h5>🔑 Definisjoner</h5>
-                    <p><strong>AI (Artificial Intelligence):</strong> Samlebegrepet for all teknologi som får datamaskiner til å utføre oppgaver som vanligvis krever menneskelig intelligens.</p>
-                    <p><strong>ML (Machine Learning):</strong> En undergren av AI. I stedet for å programmere regler manuelt, lar vi maskinen lære reglene selv ved å se på data.</p>
-                    <p><strong>DL (Deep Learning):</strong> En undergren av ML igjen. Bruker "kunstige nevrale nettverk" med mange lag for å løse komplekse problemer (som bildegjenkjenning).</p>
+                    <h5>🔑 Definitions</h5>
+                    <p><strong>AI (Artificial Intelligence):</strong> The broad concept of machines being able to carry out tasks in a way that we would consider "smart".</p>
+                    <p><strong>ML (Machine Learning):</strong> A subset of AI. Instead of hard-coding rules, the machine learns the rules by analyzing data.</p>
+                    <p><strong>DL (Deep Learning):</strong> A subset of ML. Uses "Artificial Neural Networks" with many layers to solve complex problems (like image recognition).</p>
                 </div>
             </div>
 
             <div class="slide">
-                <h3>1.2 Generalisering: Overfitting vs Underfitting</h3>
-                <p>Målet med ML er <strong>Generalisering</strong>: Å kunne spå riktig på nye data maskinen aldri har sett før.</p>
+                <h3>1.2 Generalization: Overfitting vs Underfitting</h3>
+                <p>The goal of ML is <strong>Generalization</strong>: Predicting correctly on new, unseen data.</p>
                 
                 <div class="grid-3">
                     <div class="card">
                         <h4>Underfitting</h4>
-                        <p>Modellen er for enkel. Den "skjønner ikke tegninga".</p>
+                        <p>The model is too simple. It fails to capture the underlying trend.</p>
                         <div style="height:5px; background:red; width:30%; margin-top:5px;"></div>
-                        <small>High Bias (Fordomsfull)</small>
+                        <small>High Bias</small>
                     </div>
                     <div class="card" style="border-color:var(--success);">
                         <h4>Just Right</h4>
-                        <p>Modellen fanger trenden (signalet), men ignorerer støyen.</p>
+                        <p>The model captures the signal (trend) but ignores the noise.</p>
                         <div style="height:5px; background:var(--success); width:70%; margin-top:5px;"></div>
-                        <small>Balansert</small>
+                        <small>Balanced</small>
                     </div>
                     <div class="card">
                         <h4>Overfitting</h4>
-                        <p>Modellen "pugger" treningsdataene (inkludert støy). Feiler på eksamen (testdata).</p>
+                        <p>The model memorizes the training data (including noise). Fails on the exam (Test Data).</p>
                         <div style="height:5px; background:blue; width:100%; margin-top:5px;"></div>
-                        <small>High Variance (Vinglete)</small>
+                        <small>High Variance</small>
                     </div>
+                </div>
+                
+                 <div class="graph-container">
+                    <svg class="graph-line" viewBox="0 0 100 50">
+                        <path d="M0,50 Q25,10 50,40 T100,20" stroke="#2ecc71" fill="none" stroke-dasharray="4" />
+                        <path d="M0,50 L10,10 L20,45 L30,5 L40,40 L50,10 L60,45 L70,5 L80,40 L90,10 L100,50" stroke="#3498db" fill="none" opacity="0.5" />
+                    </svg>
+                    <div class="dot" style="bottom:10px; left:25%;"></div>
+                    <div class="dot" style="bottom:40px; left:50%;"></div>
+                    <div class="dot" style="bottom:20px; left:75%;"></div>
+                    <div class="graph-label">Green = Good Model | Blue = Overfitting (Zig-zag)</div>
                 </div>
             </div>
 
             <div class="slide">
-                <h3>1.3 Python Libraries (Verktøykassen)</h3>
+                <h3>1.3 Python Libraries (The Toolkit)</h3>
                 <table class="comparison-table">
-                    <tr><th>Bibliotek</th><th>Fullt navn / Forklaring</th><th>Hovedoppgave</th></tr>
-                    <tr><td><strong>NumPy</strong></td><td>Numerical Python</td><td>Raske matriseoperasjoner. Grunnmuren i Python AI.</td></tr>
-                    <tr><td><strong>Pandas</strong></td><td>Panel Data</td><td>Excel for programmerere. Lese/vaske tabeller.</td></tr>
-                    <tr><td><strong>Matplotlib</strong></td><td>(Plotting Library)</td><td>Lager grafer og visualiseringer.</td></tr>
-                    <tr><td><strong>Scikit-Learn</strong></td><td>Science Kit Learn</td><td>Klassiske ML-algoritmer (ikke Deep Learning).</td></tr>
-                    <tr><td><strong>Keras</strong></td><td>(API for TensorFlow)</td><td>Bygge nevrale nettverk (Deep Learning) enkelt.</td></tr>
+                    <tr><th>Library</th><th>Full Name / Role</th><th>Main Task</th></tr>
+                    <tr><td><strong>NumPy</strong></td><td>Numerical Python</td><td>Fast matrix operations. The foundation of Python AI.</td></tr>
+                    <tr><td><strong>Pandas</strong></td><td>Panel Data</td><td>Excel for programmers. Reading/cleaning tables.</td></tr>
+                    <tr><td><strong>Matplotlib</strong></td><td>(Plotting Library)</td><td>Creating graphs and visualizations.</td></tr>
+                    <tr><td><strong>Scikit-Learn</strong></td><td>Science Kit Learn</td><td>Classic ML algorithms (Regression, SVM, PCA).</td></tr>
+                    <tr><td><strong>Keras</strong></td><td>(API for TensorFlow)</td><td>Building Neural Networks (Deep Learning) easily.</td></tr>
                 </table>
             </div>
         </section>
 
         <section id="mod2" class="module">
             <div class="header-banner">
-                <h1>Modul 2: Matematikk for AI</h1>
-                <p>Lineær Algebra & PCA (Principal Component Analysis)</p>
+                <h1>Module 2: Mathematics for AI</h1>
+                <p>Linear Algebra & PCA (Principal Component Analysis)</p>
             </div>
             
             <div class="slide">
-                <h3>2.1 Vektorer: Språket til AI</h3>
+                <h3>2.1 Vectors: The Language of AI</h3>
                 <div class="grid-2">
                     <div class="concept-box">
-                        <h5>Dot Product (Prikkprodukt)</h5>
+                        <h5>Dot Product</h5>
                         <p>$\mathbf{a} \cdot \mathbf{b} = \sum a_i b_i$</p>
-                        <p>Dette tallet forteller oss hvor <strong>like</strong> to vektorer er.</p>
+                        <p>This number tells us how <strong>similar</strong> two vectors are.</p>
                         <ul>
-                            <li>Positivt tall: Peker samme vei (Like).</li>
-                            <li><strong>0: Ortogonale</strong> (Vinkelrette/Uavhengige). Ingen sammenheng.</li>
-                            <li>Negativt tall: Peker motsatt vei (Ulike).</li>
+                            <li>Positive: Pointing same direction (Similar).</li>
+                            <li><strong>0: Orthogonal</strong> (Perpendicular/Independent). No correlation.</li>
+                            <li>Negative: Pointing opposite direction.</li>
                         </ul>
                     </div>
                     <div style="display:flex; align-items:center; justify-content:center;">
                         <div style="position:relative; width:150px; height:150px; border-left:2px solid #333; border-bottom:2px solid #333;">
                             <div style="position:absolute; bottom:0; left:0; width:100px; height:2px; background:blue; transform:rotate(-10deg); transform-origin:left;"></div>
                             <div style="position:absolute; bottom:0; left:0; width:100px; height:2px; background:red; transform:rotate(-80deg); transform-origin:left;"></div>
-                            <div style="position:absolute; top:20px; right:20px;">Ortogonale (0 likhet)</div>
+                            <div style="position:absolute; top:20px; right:20px; font-size:0.8rem;">Orthogonal (0 similarity)</div>
                         </div>
                     </div>
                 </div>
@@ -122,121 +134,127 @@
 
             <div class="slide">
                 <h3>2.2 PCA: Principal Component Analysis</h3>
-                <p><strong>Hvorfor?</strong> Vi vil forenkle dataene (fjerne støy) uten å miste viktig informasjon. Vi komprimerer mange kolonner ned til noen få "Hovedkomponenter".</p>
+                <p><strong>Why?</strong> To simplify data (remove noise) without losing key info. Compressing many columns into a few "Principal Components".</p>
                 
                 <div class="process-steps">
                     <div class="step">1. Standardize</div>
-                    <div class="step-desc">Skaler dataene (Mean=0, Variance=1) så ikke store tall (f.eks lønn) dominerer små tall (f.eks alder).</div>
+                    <div class="step-desc">Scale data (Mean=0, Variance=1) so large numbers (e.g. Salary) don't dominate small ones (e.g. Age).</div>
                     
                     <div class="step">2. Covariance Matrix</div>
-                    <div class="step-desc">Beregn <strong>Kovarians</strong>-matrisen for å se hvordan variablene henger sammen.</div>
+                    <div class="step-desc">Calculate how variables vary together (Correlation).</div>
                     
                     <div class="step">3. Eigen-Decomposition</div>
-                    <div class="step-desc">Finn <strong>Eigenvectors</strong> (Retningene med mest informasjon) og <strong>Eigenvalues</strong> (Hvor viktige de er).</div>
+                    <div class="step-desc">Find <strong>Eigenvectors</strong> (Directions with most info) and <strong>Eigenvalues</strong> (Importance).</div>
                     
                     <div class="step">4. Project</div>
-                    <div class="step-desc">Projiser (flytt) punktene over på de nye aksene.</div>
+                    <div class="step-desc">Project data points onto the new axes (Components).</div>
                 </div>
-                <p style="margin-top:10px; font-style:italic;"><strong>SVD (Singular Value Decomposition)</strong> er en matte-metode datamaskinen ofte bruker for å regne ut dette raskere.</p>
+                <p style="margin-top:10px; font-style:italic;"><strong>SVD (Singular Value Decomposition)</strong> is a matrix factorization method often used to calculate this efficiently.</p>
             </div>
         </section>
 
         <section id="mod3" class="module">
             <div class="header-banner">
-                <h1>Modul 3: Algoritmer</h1>
-                <p>Klassisk Maskinlæring (SVM, KNN, Trær)</p>
+                <h1>Module 3: Algorithms</h1>
+                <p>Classic Machine Learning (SVM, KNN, Trees)</p>
             </div>
 
             <div class="slide">
-                <h3>3.1 Klassifikatorer visualisert</h3>
+                <h3>3.1 Classifiers Visualized</h3>
                 <div class="grid-2">
                     <div class="card">
                         <h4>SVM (Support Vector Machine)</h4>
-                        <p>Prøver å finne den bredeste "veien" (Margin) mellom to klasser.</p>
+                        <p>Tries to find the widest "street" (Margin) between two classes.</p>
                         <div class="svm-visual">
                             <div class="svm-margin"></div>
                             <div class="svm-line"></div>
                             <div class="dot" style="top:40px; left:30%; background:blue;"></div>
                             <div class="dot" style="top:100px; left:70%; background:red;"></div>
                         </div>
-                        <p><strong>Kernel Trick:</strong> En teknikk SVM bruker for å løse problemer som ikke kan skilles med en rett linje (ved å flytte dataene til høyere dimensjoner).</p>
+                        <p><strong>Kernel Trick:</strong> Mapping data to higher dimensions to separate non-linear data.</p>
                     </div>
                     
                     <div class="card">
-                        <h4>KNN (K-Nearest Neighbors)</h4>
-                        <p>Den "laze" algoritmen. Den husker bare alle punktene. Når den skal spå et nytt punkt, ser den på de <strong>K</strong> nærmeste naboene.</p>
-                        <p><strong>Lite K (f.eks 1):</strong> Veldig følsom for støy (Overfitting).</p>
-                        <p><strong>Stort K:</strong> Jevner ut detaljene (Underfitting).</p>
+                        <h4>Decision Trees</h4>
+                        <p>Asks a series of Yes/No questions to split data.</p>
+                        <div class="tree-visual">
+                            <div class="tree-node">Wings?</div>
+                            <div class="tree-branches">
+                                <div><div class="tree-connector"></div><div class="tree-node">Yes: Bird</div></div>
+                                <div><div class="tree-connector"></div><div class="tree-node">No: Cat</div></div>
+                            </div>
+                        </div>
+                        <p><strong>Random Forest:</strong> Many trees voting together. Reduces overfitting.</p>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
-                <h3>3.2 Evaluering: Accuracy er ikke alt</h3>
+                <h3>3.2 Evaluation: Accuracy isn't everything</h3>
                 <div class="concept-box">
-                    <h5>Forstå Confusion Matrix</h5>
-                    <p>Vi må vite forskjell på <strong>False Positives (Falsk Alarm)</strong> og <strong>False Negatives (Skjult fare)</strong>.</p>
+                    <h5>Confusion Matrix</h5>
+                    <p>We must distinguish between <strong>False Positives (False Alarm)</strong> and <strong>False Negatives (Missed Danger)</strong>.</p>
                 </div>
 
                 <table class="comparison-table">
-                    <tr><th>Metrikk</th><th>Formel</th><th>Bruk når...</th></tr>
-                    <tr><td><strong>Recall</strong> (Sensitivity)</td><td>$TP / (TP + FN)$</td><td>Det er kritisk å finne ALLE tilfeller (f.eks Kreft, Terror). Vi tåler falsk alarm, men ikke å overse noe.</td></tr>
-                    <tr><td><strong>Precision</strong></td><td>$TP / (TP + FP)$</td><td>Vi hater falske alarmer (f.eks Spam-filter). Vi vil være sikre når vi først sier ifra.</td></tr>
-                    <tr><td><strong>F1-Score</strong></td><td>(Harmonisk snitt)</td><td>Vi trenger en balanse (f.eks. ubalanserte datasett med 99% friske og 1% syke).</td></tr>
+                    <tr><th>Metric</th><th>Formula</th><th>Use when...</th></tr>
+                    <tr><td><strong>Recall</strong> (Sensitivity)</td><td>$TP / (TP + FN)$</td><td>Finding ALL positive cases is critical (e.g., Cancer, Terror). False alarms are okay, missing one is not.</td></tr>
+                    <tr><td><strong>Precision</strong></td><td>$TP / (TP + FP)$</td><td>False alarms are annoying (e.g., Spam filter). We want to be sure.</td></tr>
+                    <tr><td><strong>F1-Score</strong></td><td>Harmonic Mean</td><td>We need a balance (e.g., Imbalanced datasets with 99% healthy and 1% sick).</td></tr>
                 </table>
             </div>
         </section>
 
         <section id="mod4" class="module">
             <div class="header-banner">
-                <h1>Modul 4: ANN (Artificial Neural Networks)</h1>
-                <p>Nevrale Nettverk, Backprop & Gradient Descent</p>
+                <h1>Module 4: ANN (Artificial Neural Networks)</h1>
+                <p>Neural Networks, Backprop & Gradient Descent</p>
             </div>
 
             <div class="slide">
-                <h3>4.1 Hvordan lærer nettverket? (Gradient Descent)</h3>
-                <p>Prosessen med å minimere feilen (Loss) kalles <strong>Gradient Descent</strong>.</p>
+                <h3>4.1 How does it learn? (Gradient Descent)</h3>
+                <p>The process of minimizing the error (Loss) is called <strong>Gradient Descent</strong>.</p>
                 
                 <div class="grid-2">
                     <div>
                         <ul class="detail-list">
-                            <li><strong>Loss Function (J):</strong> Forteller hvor feil modellen tar (f.eks. MSE).</li>
-                            <li><strong>Gradient:</strong> Forteller hvilken vei vi må justere vektene for å minske feilen.</li>
-                            <li><strong>Learning Rate ($\alpha$):</strong> Hvor store skritt vi tar nedover bakken.</li>
+                            <li><strong>Loss Function (J):</strong> Tells us how wrong the model is (e.g., MSE).</li>
+                            <li><strong>Gradient:</strong> The slope. Tells us which direction to adjust weights to reduce error.</li>
+                            <li><strong>Learning Rate ($\alpha$):</strong> Step size down the hill.</li>
                         </ul>
                     </div>
                     <div>
                         <div class="hill-visual">
                             <div class="ball"></div>
                         </div>
-                        <p class="hill-label">Mål: Rulle ballen til bunnen (Global Minima)</p>
+                        <p class="hill-label">Goal: Roll the ball to the bottom (Global Minima)</p>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
-                <h3>4.2 Aktiveringsfunksjoner (Activation Functions)</h3>
-                <p>Uten disse ville hele nettverket bare vært én stor lineær formel (kjedelig!). Disse legger til "kurver" og kompleksitet.</p>
+                <h3>4.2 Activation Functions</h3>
+                <p>They introduce non-linearity. Without them, a Neural Net is just Linear Regression.</p>
                 <ul class="detail-list">
-                    <li><strong>Sigmoid:</strong> Klemmer tall mellom 0 og 1. Gammeldags. Problem: <em>Vanishing Gradient</em> (Læringen stopper opp i dype nett).</li>
-                    <li><strong>ReLU (Rectified Linear Unit):</strong> $max(0, x)$. Hvis tallet er negativt, blir det 0. Hvis positivt, beholdes det. Løser Vanishing Gradient. Bransjestandard.</li>
-                    <li><strong>Softmax:</strong> Brukes kun i siste lag for å gjøre tall om til sannsynligheter (f.eks. "70% katt, 30% hund").</li>
+                    <li><strong>Sigmoid:</strong> S-shape (0 to 1). Old school. Problem: <em>Vanishing Gradient</em>.</li>
+                    <li><strong>ReLU (Rectified Linear Unit):</strong> $max(0, x)$. Standard for hidden layers. Solves Vanishing Gradient.</li>
+                    <li><strong>Softmax:</strong> Used in Output Layer for multi-class probabilities (sums to 100%).</li>
                 </ul>
             </div>
         </section>
 
         <section id="mod5" class="module">
             <div class="header-banner">
-                <h1>Modul 5: Deep Learning (DL)</h1>
+                <h1>Module 5: Deep Learning (DL)</h1>
                 <p>CNN, RNN, LSTM & Autoencoders</p>
             </div>
 
             <div class="slide">
                 <h3>5.1 CNN (Convolutional Neural Networks)</h3>
-                <p>Spesialister på bilder. I stedet for å se på piksler en og en, ser de på mønstre (kanter, former).</p>
+                <p>Specialized for images. Instead of pixels, it looks for patterns (edges, shapes).</p>
                 
                 <div class="cnn-visual">
-                    <div class="cnn-layer" style="background:#34495e; width:80px; height:80px;">Bilde</div>
+                    <div class="cnn-layer" style="background:#34495e; width:80px; height:80px;">Image</div>
                     <div class="flow-arrow">&rarr;</div>
                     <div class="cnn-layer" style="background:#e67e22; width:60px; height:60px;">Conv</div>
                     <div class="flow-arrow">&rarr;</div>
@@ -248,63 +266,62 @@
                 <div class="grid-2">
                     <div class="card">
                         <h4>Convolution (Filter)</h4>
-                        <p>Et lite vindu glir over bildet og finner features (trekk). Bevarer romlig informasjon.</p>
+                        <p>A small window slides over the image to extract features. Preserves spatial structure.</p>
                     </div>
                     <div class="card">
                         <h4>Pooling (Subsampling)</h4>
-                        <p>Krymper bildet ved å f.eks. kun ta vare på den høyeste verdien i et område. Reduserer regnekraft og motvirker overfitting.</p>
+                        <p>Reduces image size by keeping only important features (e.g. Max Pooling). Reduces computation.</p>
                     </div>
                 </div>
             </div>
 
             <div class="slide">
-                <h3>5.2 RNN & LSTM (Sekvenser)</h3>
-                <p>Brukes til tekst, lyd og tidsserier. Data der rekkefølgen betyr noe.</p>
+                <h3>5.2 RNN & LSTM (Sequences)</h3>
+                <p>For text, audio, and time-series. Data where order matters.</p>
                 <div class="concept-box">
                     <h5>RNN (Recurrent Neural Network)</h5>
-                    <p>Har en "loop" som husker forrige steg. Men den glemmer fort (korttidshukommelse).</p>
+                    <p>Has a "loop" to remember the previous step. Suffers from short-term memory.</p>
                     <hr style="border:0; border-top:1px dashed #ccc; margin:10px 0;">
                     <h5>LSTM (Long Short-Term Memory)</h5>
-                    <p>En avansert RNN. Har spesielle <strong>Gates (Porter)</strong> som bestemmer nøyaktig hva som skal huskes og hva som skal glemmes. Løser problemet med at gradienten forsvinner (Vanishing Gradient).</p>
+                    <p>Advanced RNN. Uses <strong>Gates</strong> to decide what to keep and what to forget. Solves <em>Vanishing Gradient</em>.</p>
                 </div>
             </div>
         </section>
 
         <section id="mod6" class="module">
             <div class="header-banner">
-                <h1>Modul 6: NLP (Natural Language Processing)</h1>
-                <p>Språkteknologi, Tekstanalyse & Transformere</p>
+                <h1>Module 6: NLP (Natural Language Processing)</h1>
+                <p>Text Analysis & Transformers</p>
             </div>
 
             <div class="slide">
-                <h3>6.1 Fra ord til tall</h3>
-                <p>Datamaskinen kan ikke lese norsk. Vi må oversette.</p>
+                <h3>6.1 From Words to Numbers</h3>
                 <div class="process-steps">
                     <div class="step">1. Tokenization</div>
-                    <div class="step-desc">Kutt opp teksten i biter (ord eller deler av ord).</div>
+                    <div class="step-desc">Splitting text into units (words).</div>
                     <div class="step">2. Stop Words</div>
-                    <div class="step-desc">Fjern støyord som "og", "i", "er".</div>
+                    <div class="step-desc">Removing noise words ("and", "the", "is").</div>
                     <div class="step">3. Lemmatization</div>
-                    <div class="step-desc">Finn grunnformen av ordet ("Løpende" &rarr; "Løpe"). Bedre enn <em>Stemming</em> som bare kutter endelsen.</div>
+                    <div class="step-desc">Finding the root form ("Running" &rarr; "Run"). Better than <em>Stemming</em>.</div>
                     <div class="step">4. Vectorization</div>
-                    <div class="step-desc">Gjør ordet om til tall (TF-IDF eller Embeddings).</div>
+                    <div class="step-desc">Converting words to vectors (TF-IDF or Embeddings).</div>
                 </div>
             </div>
 
             <div class="slide">
                 <h3>6.2 The Transformer Revolution (BERT & GPT)</h3>
-                <p>Moderne NLP bruker <strong>Transformers</strong>. Nøkkelen er <strong>Self-Attention</strong>: Modellen leser hele setningen samtidig og ser hvordan ordene påvirker hverandre.</p>
+                <p>Key Tech: <strong>Self-Attention</strong>. The model reads the whole sentence at once to understand context.</p>
                 
                 <div class="grid-2">
                     <div class="card">
                         <h4>BERT</h4>
                         <p><em>Bidirectional Encoder Representations from Transformers</em></p>
-                        <p>Leser teksten begge veier samtidig. Kjempegod på å forstå kontekst ("Hva handler denne teksten om?").</p>
+                        <p>Reads text both ways. Great for understanding context and classification.</p>
                     </div>
                     <div class="card">
                         <h4>GPT</h4>
                         <p><em>Generative Pre-trained Transformer</em></p>
-                        <p>Leser kun forover. Prøver å gjette neste ord. Kjempegod på å skrive tekst (Generering).</p>
+                        <p>Reads forward only. Predicts the next word. Great for generating text.</p>
                     </div>
                 </div>
             </div>
@@ -312,8 +329,8 @@
 
         <section id="mod7" class="module">
             <div class="header-banner">
-                <h1>Modul 7: Praktisk Koding</h1>
-                <p>Cheat Sheet for Implementering</p>
+                <h1>Module 7: Applied Code</h1>
+                <p>Cheat Sheet for Implementation</p>
             </div>
 
             <div class="slide">
@@ -322,22 +339,21 @@
                     <div class="code-card">
                         <h4>Arrays & Shapes</h4>
                         <pre><code>import numpy as np
-# Lage en liste med tall
+# Create list
 arr = np.array([1, 2, 3])
-# Lage en 2x3 matrise med nuller
+# Create 2x3 matrix of zeros
 z = np.zeros((2, 3)) 
-# Sjekke formen -> (2, 3)
+# Check shape -> (2, 3)
 print(z.shape)</code></pre>
                     </div>
                     <div class="code-card">
-                        <h4>Matte-operasjoner</h4>
-                        <pre><code># Gange hvert tall i a med b
+                        <h4>Math Operations</h4>
+                        <pre><code># Element-wise multiply
 elementwise = a * b 
 
-# Prikkprodukt (Dot Product)
-# Brukes til matrisemultiplikasjon
+# Dot Product (Matrix Mult)
 dot_prod = np.dot(a, b) 
-# Alternativ skrivemåte:
+# OR
 dot_prod = a @ b</code></pre>
                     </div>
                 </div>
@@ -348,38 +364,37 @@ dot_prod = a @ b</code></pre>
                 <pre><code>from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
-# 1. Start en tom modell
+# 1. Initialize
 model = Sequential()
 
-# 2. Legg til lag (Input + Skjult lag)
-# Dense = Alle nevroner koblet til alle. 
-# 128 nevroner, ReLU aktivering.
+# 2. Add Layers (Input + Hidden)
+# Dense = Fully Connected. 
+# 128 neurons, ReLU activation.
 model.add(Dense(128, activation='relu', input_shape=(784,)))
 
-# 3. Output lag (10 mulige svar/klasser)
-# Softmax gir oss sannsynligheter.
+# 3. Output Layer (10 classes)
+# Softmax gives probabilities.
 model.add(Dense(10, activation='softmax'))
 
-# 4. Compile (Konfigurer læringen)
-# Optimizer: Adam (smart gradient descent)
-# Loss: Categorical Crossentropy (for klassifisering)
+# 4. Compile
+# Optimizer: Adam, Loss: Categorical Crossentropy
 model.compile(optimizer='adam', loss='categorical_crossentropy')
 
-# 5. Tren modellen!
+# 5. Train
 model.fit(X_train, y_train, epochs=5)</code></pre>
             </div>
         </section>
 
         <section id="quiz-setup" class="module">
             <div class="header-banner">
-                <h1>Eksamenssimulator</h1>
-                <p>Test deg selv i hele pensum</p>
+                <h1>Exam Simulator</h1>
+                <p>Test yourself on the full curriculum</p>
             </div>
             <div class="slide" style="text-align: center;">
-                <h3>Velg modus:</h3>
+                <h3>Select Mode:</h3>
                 <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
-                    <button class="btn-primary" onclick="startQuiz('all')">Full Eksamen (60 spm)</button>
-                    <button class="btn-secondary" onclick="document.getElementById('mod-select').classList.remove('hidden')">Øv på modul</button>
+                    <button class="btn-primary" onclick="startQuiz('all')">Full Exam (60 Qs)</button>
+                    <button class="btn-secondary" onclick="document.getElementById('mod-select').classList.remove('hidden')">Practice Module</button>
                 </div>
                 <div id="mod-select" class="hidden" style="margin-top: 20px;">
                     <button class="btn-outline" onclick="startQuiz(1)">Mod 1</button>
@@ -388,7 +403,7 @@ model.fit(X_train, y_train, epochs=5)</code></pre>
                     <button class="btn-outline" onclick="startQuiz(4)">Mod 4</button>
                     <button class="btn-outline" onclick="startQuiz(5)">Mod 5</button>
                     <button class="btn-outline" onclick="startQuiz(6)">Mod 6</button>
-                    <button class="btn-outline" onclick="startQuiz(7)">Mod 7 (Kode)</button>
+                    <button class="btn-outline" onclick="startQuiz(7)">Mod 7 (Code)</button>
                 </div>
             </div>
         </section>
@@ -396,13 +411,13 @@ model.fit(X_train, y_train, epochs=5)</code></pre>
         <section id="quiz-area" class="hidden">
             <div class="quiz-container-wrapper">
                 <div class="quiz-header">
-                    <h2><i class="fas fa-pen-fancy"></i> Eksamen</h2>
-                    <div class="stats-badge" id="quiz-status">Klargjør...</div>
+                    <h2><i class="fas fa-pen-fancy"></i> Assessment</h2>
+                    <div class="stats-badge" id="quiz-status">Preparing...</div>
                 </div>
                 <div id="quiz-list-container"></div>
                 <div class="quiz-footer-actions">
-                    <button id="finish-btn" class="btn-primary" onclick="submitQuizSheet()">Lever Eksamen</button>
-                    <button id="retry-btn" class="btn-secondary hidden" onclick="location.reload()">Ta ny eksamen</button>
+                    <button id="finish-btn" class="btn-primary" onclick="submitQuizSheet()">Submit Exam</button>
+                    <button id="retry-btn" class="btn-secondary hidden" onclick="location.reload()">Take Another Exam</button>
                 </div>
             </div>
         </section>

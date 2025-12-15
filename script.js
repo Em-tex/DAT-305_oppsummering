@@ -56,7 +56,7 @@ function startQuiz(mode) {
     
     // Filter questions based on mode
     if (mode === 'all') {
-        // Shuffle and pick 60 random for Full Exam (INCREASED FROM 30)
+        // Shuffle and pick 60 random for Full Exam (Updated from 30)
         activeQuestions = allQs.sort(() => 0.5 - Math.random()).slice(0, 60);
         document.getElementById('quiz-status').innerText = "Full Exam (60 Questions)";
     } else {
